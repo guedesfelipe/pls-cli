@@ -24,6 +24,7 @@ pytest-cov = "^3.0.0"
 ipdb = "^0.13.9"
 safety = "^1.10.3"
 types-setuptools = "^57.4.17"
+freezegun = "^1.2.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
