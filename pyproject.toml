@@ -3,7 +3,7 @@ name = "pls-cli"
 version = "0.1.0"
 description = ""
 authors = ["Felipe Guedes <contatofelipeguedes@gmail.com>"]
-packages = [{ include = "pls_cli" }]
+packages = [{ include = "pls_cli" }, { include = "README.md" }]
 readme = "README.MD"
 repository = "https://github.com/guedesfelipe/pls-cli"
 homepage = "https://github.com/guedesfelipe/pls-cli"
