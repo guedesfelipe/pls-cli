@@ -1,0 +1,23 @@
+pydocstyle:
+  run: false
+  disable:
+    - D203
+    - D205
+    - D212
+    - D406
+    - D407
+    - D415
+
+mypy:
+  run: true
+  options:
+    ignore-missing-imports: true
+    follow-imports: skip
+
+pep8: full
+
+pycodestyle:
+  options:
+    classmethod-decorators:
+      - classmethod
+      - validator
