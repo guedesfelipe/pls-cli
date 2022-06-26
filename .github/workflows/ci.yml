@@ -109,12 +109,12 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction
   
-      # - name: Coverage ☂️
-      #   run: poetry run pytest --cov --cov-report=xml
+      - name: Coverage ☂️
+        run: poetry run pytest --cov --cov-report=xml
 
-      # - name: Upload Coverage 📤
-      #   uses: codecov/codecov-action@v1
-      #   with:
-      #     token: ${{ secrets.CODECOV_TOKEN }}
-      #     file: ./coverage.xml
-      #     fail_ci_if_error: true
+      - name: Upload Coverage 📤
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          fail_ci_if_error: true
