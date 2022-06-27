@@ -101,12 +101,12 @@ pls --help
 ```
 
 ```
-  add           Add a Task (Add task name inside a quotes)
+  add           Add a Task (Add task name inside quotes)
   clean         Clean up tasks marked as done
   clear         Clear all tasks
   count-done    Count done tasks
   count-undone  Count undone tasks
-  delete        Deletes a Task
+  delete        Delete a Task
   done          Mark a task as done
   move          Change task order
   setup         Reset all data and run setup
