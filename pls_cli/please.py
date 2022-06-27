@@ -101,7 +101,7 @@ def showtasks() -> None:
         print_no_pending_tasks()
 
 
-@app.command(short_help='Add a Task')
+@app.command(short_help='Add a Task (Add task name inside quotes)')
 def add(task: str) -> None:
     """Add new task to the list.
 
@@ -222,7 +222,7 @@ def undone(task_id: int) -> None:
     print_tasks()
 
 
-@app.command(short_help='Deletes a Task')
+@app.command(short_help='Delete a Task')
 def delete(task_id: int) -> None:
     """Delete an existing task.
 
