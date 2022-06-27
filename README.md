@@ -8,8 +8,8 @@
     <a href="https://github.com/guedesfelipe/pls-cli/actions/workflows/security.yml" target="_blank">
         <img src="https://github.com/guedesfelipe/pls-cli/actions/workflows/security.yml/badge.svg?branch=main" />
     </a>
-    <a href="https://codecov.io/gh/guedesfelipe/pls_cli" target="_blank">
-      <img src="https://codecov.io/gh/guedesfelipe/pls_cli/branch/main/graph/badge.svg" />
+    <a href="https://codecov.io/gh/guedesfelipe/pls-cli" > 
+      <img src="https://codecov.io/gh/guedesfelipe/pls-cli/branch/main/graph/badge.svg"/> 
     </a>
     <a href="https://pypi.org/project/pls-cli/" target="_blank">
       <img src="https://img.shields.io/pypi/v/pls-cli?label=pypi%20package" />
