@@ -80,41 +80,41 @@ jobs:
         run: |
           source $VENV
           pytest tests/
-  codecov:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
+  # codecov:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout 🛎️
+  #       uses: actions/checkout@v3
 
-      - name: Setup Python 🐍
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
+  #     - name: Setup Python 🐍
+  #       uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.9
 
-      - name: Install Poetry 📦️
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
+  #     - name: Install Poetry 📦️
+  #       uses: snok/install-poetry@v1
+  #       with:
+  #         virtualenvs-create: true
+  #         virtualenvs-in-project: true
 
-      - name: Load cached venv 🗃
-        id: cached-poetry-dependencies
-        uses: actions/cache@v2
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+  #     - name: Load cached venv 🗃
+  #       id: cached-poetry-dependencies
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: .venv
+  #         key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
-      - name: Install Dependencies 📌
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction
-  
-      - name: Coverage ☂️
-        run: poetry run pytest --cov --cov-report=xml
+  #     - name: Install Dependencies 📌
+  #       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+  #       run: poetry install --no-interaction
+  # 
+  #     - name: Coverage ☂️
+  #       run: poetry run pytest --cov --cov-report=xml
 
-      - name: Upload Coverage 📤
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          fail_ci_if_error: true
+  #     - name: Upload Coverage 📤
+  #       uses: codecov/codecov-action@v1
+  #       with:
+  #         token: ${{ secrets.CODECOV_TOKEN }}
+  #         file: ./coverage.xml
+  #         fail_ci_if_error: true
