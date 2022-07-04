@@ -34,9 +34,9 @@ theme:
 
 # Customization
 extra:
-  # analytics:
-  #   provider: google
-  #   property: 
+  analytics:
+    provider: google
+    property: G-TNKR4D5P7Q
   homepage: https://guedesfelipe.github.io/pls-cli/
   social:
     - icon: fontawesome/brands/github
