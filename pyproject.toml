@@ -6,8 +6,8 @@ authors = ["Felipe Guedes <contatofelipeguedes@gmail.com>"]
 packages = [{ include = "pls_cli" }]
 readme = "README.md"
 repository = "https://github.com/guedesfelipe/pls-cli"
-homepage = "https://github.com/guedesfelipe/pls-cli"
-documentation = "https://github.com/guedesfelipe/pls-cli"
+homepage = "https://guedesfelipe.github.io/pls-cli/"
+documentation = "https://guedesfelipe.github.io/pls-cli/"
 keywords = ["pls", "please", "todo", "cli"]
 
 [tool.poetry.dependencies]
