@@ -1,0 +1,97 @@
+# Project information
+site_name: PLS-CLI
+site_url: https://guedesfelipe.github.io/pls-cli/
+site_author: Felipe Guedes
+site_description: PLS-CLI docs
+
+# Repository
+repo_name: guedesfelipe/pls-cli
+repo_url: https://github.com/guedesfelipe/pls-cli
+edit_uri: ""
+
+theme:
+  name: material
+  icon:
+    logo: octicons/terminal-16
+  features:
+    - content.code.annotate
+    - navigation.top
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+      primary: amber
+      accent: deep orange
+    - media: "(prefers-color-scheme: light)" 
+      scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+      primary: amber
+      accent: deep orange
+
+# Customization
+extra:
+  # analytics:
+  #   provider: google
+  #   property: 
+  homepage: https://guedesfelipe.github.io/pls-cli/
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/guedesfelipe
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/felipe-guedes-263480127
+    - icon: fontawesome/solid/globe
+      link: https://guedesfelipe.github.io/blog/
+    - icon: fontawesome/solid/graduation-cap
+      link: https://guedesfelipe.github.io
+
+# Extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:materialx.emoji.twemoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: squidfunk
+      repo: mkdocs-material
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - pymdownx.snippets:
+      base_path:
+      - docs_src
+
+# Page tree
+nav:
+  - 🏠 &nbsp;Home: index.md
