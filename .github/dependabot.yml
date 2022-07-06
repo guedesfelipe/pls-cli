@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "⬆️"
+      prefix-development: "⬆️"
+    assignees:
+      - "guedesfelipe"
