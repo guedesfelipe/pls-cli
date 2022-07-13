@@ -15,7 +15,7 @@ from pls_cli import __version__
 from pls_cli.utils.quotes import get_rand_quote
 from pls_cli.utils.settings import Settings
 
-app = typer.Typer()
+app = typer.Typer(rich_markup_mode='rich')
 console = Console()
 
 error_line_style = os.getenv('PLS_ERROR_LINE_STYLE', '#e56767')
@@ -355,19 +355,39 @@ def clean() -> None:
     )
 
 
-@app.command(short_help='Count done tasks')
+@app.command(short_help='Count done tasks', rich_help_panel='Integration')
 def count_done() -> None:
     """Count Done tasks"""
     typer.echo(Settings().count_tasks_done())
 
 
-@app.command(short_help='Count undone tasks')
+@app.command(short_help='Count undone tasks', rich_help_panel='Integration')
 def count_undone() -> None:
     """Count Undone tasks"""
     typer.echo(Settings().count_tasks_undone())
 
 
-@app.command(short_help='Reset all data and run setup')
+@app.command(
+    short_help='Change name without resetting data',
+    rich_help_panel='Utils and Configs',
+)
+def callme(name: str) -> None:
+    settings = Settings().get_settings()
+    settings['user_name'] = name
+    Settings().write_settings(settings)
+    center_print(
+        Rule(
+            'Thanks for letting me know your name!',
+            style=insert_or_delete_line_style,
+        ),
+        style=insert_or_delete_text_style,
+    )
+
+
+@app.command(
+    short_help='Reset all data and run setup',
+    rich_help_panel='Utils and Configs',
+)
 def setup() -> None:
     """Initialize the settings file."""
     settings: dict = {}
@@ -401,7 +421,10 @@ def setup() -> None:
     Settings().write_settings(settings)
 
 
-@app.callback(invoke_without_command=True)
+@app.callback(
+    invoke_without_command=True,
+    epilog='Made with [red]:heart:[/red] by [link=https://github.com/guedesfelipe/pls-cli]Felipe Guedes[/link]',
+)
 def show(ctx: typer.Context) -> None:
     """Greets the user."""
     try:
@@ -432,7 +455,7 @@ def show(ctx: typer.Context) -> None:
         )
 
 
-@app.command()
+@app.command(rich_help_panel='Utils and Configs')
 def version():
     """Show version"""
     typer.echo(f'pls CLI Version: {__version__}')
