@@ -23,6 +23,7 @@ def test_error_invalid_command():
 def test_help():
     result = runner.invoke(app, ['--help'])
     assert result.exit_code == 0
+    assert 'Show this message and exit' in result.stdout
 
 
 def test_version_command():
