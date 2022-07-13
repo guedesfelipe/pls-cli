@@ -23,10 +23,6 @@ def test_error_invalid_command():
 def test_help():
     result = runner.invoke(app, ['--help'])
     assert result.exit_code == 0
-    assert (
-        '--help                        Show this message and exit.                    │\n╰──────────────────────────────────────────────────────────────────────────────╯\n╭─ Commands ───────────────────────────────────────────────────────────────────╮\n│ add             Add a Task (Add task name inside quotes)                     │\n│ clean           Clean up tasks marked as done                                │\n│ clear           Clear all tasks                                              │\n│ delete          Delete a Task                                                │\n│ done            Mark a task as done                                          │\n│ move            Change task order                                            │\n│ showtasks       Show all Tasks                                               │\n│ undone          Mark a task as undone                                        │\n╰──────────────────────────────────────────────────────────────────────────────╯\n╭─ Utils and Configs ──────────────────────────────────────────────────────────╮\n│ callme          Change name without resetting data                           │\n│ setup           Reset all data and run setup                                 │\n│ version         Show version                                                 │\n╰──────────────────────────────────────────────────────────────────────────────╯\n╭─ Integration ────────────────────────────────────────────────────────────────╮\n│ count-done                      Count done tasks                             │\n│ count-undone                    Count undone tasks                           │\n╰──────────────────────────────────────────────────────────────────────────────╯\n                                                                                \n Made with ❤ by Felipe Guedes'
-        in result.stdout
-    )
 
 
 def test_version_command():
