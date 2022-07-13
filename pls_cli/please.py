@@ -55,7 +55,10 @@ def center_print(text, style: str = None, wrap: bool = False) -> None:
     else:
         width = shutil.get_terminal_size().columns
 
-    console.print(Align.center(text, style=style, width=width))
+    if isinstance(text, Rule):
+        console.print(text, style=style, width=width)
+    else:
+        console.print(Align.center(text, style=style, width=width))
 
 
 def print_no_pending_tasks() -> None:
