@@ -17,14 +17,14 @@ def test_version():
 def test_error_invalid_command():
     result = runner.invoke(app, ['test'])
     assert result.exit_code == 2
-    assert "Error: No such command 'test'" in result.stdout
+    assert "No such command 'test'" in result.stdout
 
 
 def test_help():
     result = runner.invoke(app, ['--help'])
     assert result.exit_code == 0
     assert (
-        '--help                          Show this message and exit.\n\nCommands:\n  add           Add a Task (Add task name inside quotes)\n  clean         Clean up tasks marked as done\n  clear         Clear all tasks\n  count-done    Count done tasks\n  count-undone  Count undone tasks\n  delete        Delete a Task\n  done          Mark a task as done\n  move          Change task order\n  setup         Reset all data and run setup\n  showtasks     Show all Tasks\n  undone        Mark a task as undone\n  version       Show version\n'
+        '--help                                               Show this message and   │\n│                                                      exit.                   │\n╰──────────────────────────────────────────────────────────────────────────────╯\n╭─ Commands ───────────────────────────────────────────────────────────────────╮\n│ add                 Add a Task (Add task name inside quotes)                 │\n│ clean               Clean up tasks marked as done                            │\n│ clear               Clear all tasks                                          │\n│ count-done          Count done tasks                                         │\n│ count-undone        Count undone tasks                                       │\n│ delete              Delete a Task                                            │\n│ done                Mark a task as done                                      │\n│ move                Change task order                                        │\n│ setup               Reset all data and run setup                             │\n│ showtasks           Show all Tasks                                           │\n│ undone              Mark a task as undone                                    │\n│ version             Show version'
         in result.stdout
     )
 
