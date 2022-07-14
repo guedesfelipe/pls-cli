@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 import shutil
+from typing import Union
 
 import typer
 from rich import box
@@ -44,7 +45,9 @@ quote_style = os.getenv('PLS_QUOTE_STYLE', '#a0a0a0')
 author_style = os.getenv('PLS_AUTHOR_STYLE', '#a0a0a0')
 
 
-def center_print(text, style: str = None, wrap: bool = False) -> None:
+def center_print(
+    text, style: Union[str, None] = None, wrap: bool = False
+) -> None:
     """Print text with center alignment.
     Args:
         text (Union[str, Rule, Table]): object to center align
