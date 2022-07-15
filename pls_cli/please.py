@@ -437,7 +437,11 @@ def setup() -> None:
     epilog='Made with [red]:heart:[/red] by [link=https://github.com/guedesfelipe/pls-cli]Felipe Guedes[/link]',
 )
 def show(ctx: typer.Context) -> None:
-    """Greets the user."""
+    """
+    💻 [bold]PLS-CLI[/]
+
+    ・[i]Minimalist and full configurable greetings and TODO list[/]・
+    """
     try:
         if ctx.invoked_subcommand is None:
             if Settings().exists_settings():
