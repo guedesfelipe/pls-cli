@@ -77,7 +77,7 @@ def print_tasks(force_print: bool = False) -> None:
         print_no_pending_tasks()
 
 
-@app.command(short_help='Show all Tasks')
+@app.command(short_help='Show all Tasks :open_book:')
 def showtasks() -> None:
     """Display the list of tasks."""
     task_table = Table(
@@ -107,7 +107,9 @@ def showtasks() -> None:
         print_no_pending_tasks()
 
 
-@app.command(short_help='Add a Task (Add task name inside quotes)')
+@app.command(
+    short_help='[bold green]Add[/bold green] a Task :sparkles: [light_slate_grey italic](Add task name inside quotes)[/]'
+)
 def add(task: str) -> None:
     """Add new task to the list.
 
@@ -125,7 +127,7 @@ def add(task: str) -> None:
     print_tasks()
 
 
-@app.command(short_help='Mark a task as done')
+@app.command(short_help='Mark a task as [#bbf2b3]done ✓[/]')
 def done(taks_id: int) -> None:
     """Mark a task as "done".
 
@@ -180,7 +182,7 @@ def done(taks_id: int) -> None:
     print_tasks()
 
 
-@app.command(short_help='Mark a task as undone')
+@app.command(short_help=f'Mark a task as [{task_pending_style}]undone ○[/]')
 def undone(task_id: int) -> None:
     """Unmark a task as "done".
 
@@ -228,7 +230,7 @@ def undone(task_id: int) -> None:
     print_tasks()
 
 
-@app.command(short_help='Delete a Task')
+@app.command(short_help='[bright_red]Delete[/] a Task')
 def delete(task_id: int) -> None:
     """Delete an existing task.
 
@@ -270,7 +272,7 @@ def delete(task_id: int) -> None:
     print_tasks(True)
 
 
-@app.command(short_help='Change task order')
+@app.command(short_help='Change task order 🔀')
 def move(old_id: int, new_id: int) -> None:
     """Change the order of task.
 
@@ -330,7 +332,7 @@ def move(old_id: int, new_id: int) -> None:
         print_tasks()
 
 
-@app.command(short_help='Clear all tasks')
+@app.command(short_help='Clear all tasks :wastebasket:')
 def clear() -> None:
     """Clear all tasks."""
     typer.confirm('Are you sure you want to delete all tasks?', abort=True)
@@ -343,7 +345,7 @@ def clear() -> None:
     )
 
 
-@app.command(short_help='Clean up tasks marked as done')
+@app.command(short_help='Clean up tasks marked as done :broom:')
 def clean() -> None:
     """Clear all tasks."""
     typer.confirm(
@@ -358,20 +360,26 @@ def clean() -> None:
     )
 
 
-@app.command(short_help='Count done tasks', rich_help_panel='Integration')
+@app.command(
+    short_help='Count done tasks :chart_increasing:',
+    rich_help_panel='Integration',
+)
 def count_done() -> None:
     """Count Done tasks"""
     typer.echo(Settings().count_tasks_done())
 
 
-@app.command(short_help='Count undone tasks', rich_help_panel='Integration')
+@app.command(
+    short_help='Count undone tasks :chart_decreasing:',
+    rich_help_panel='Integration',
+)
 def count_undone() -> None:
     """Count Undone tasks"""
     typer.echo(Settings().count_tasks_undone())
 
 
 @app.command(
-    short_help='Change name without resetting data',
+    short_help='Change name :name_badge: [light_slate_grey italic](without resetting data)[/]',
     rich_help_panel='Utils and Configs',
 )
 def callme(name: str) -> None:
@@ -388,7 +396,7 @@ def callme(name: str) -> None:
 
 
 @app.command(
-    short_help='Reset all data and run setup',
+    short_help='Reset all data and run setup :wrench:',
     rich_help_panel='Utils and Configs',
 )
 def setup() -> None:
@@ -460,6 +468,6 @@ def show(ctx: typer.Context) -> None:
 
 @app.command(rich_help_panel='Utils and Configs')
 def version():
-    """Show version"""
+    """Show version :bookmark:"""
     typer.echo(f'pls CLI Version: {__version__}')
     raise typer.Exit()
