@@ -19,6 +19,9 @@ class Settings:
     def get_config_path(self):
         return os.path.join(expanduser('~'), '.config', 'pls')
 
+    def get_full_settings_path(self):
+        return self.full_settings_path
+
     def create_dir_if_not_exists(self) -> None:
         if not os.path.exists(self.config_path):
             os.makedirs(self.config_path)
