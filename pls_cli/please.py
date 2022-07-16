@@ -9,6 +9,7 @@ from rich import box
 from rich.align import Align
 from rich.console import Console
 from rich.markdown import Markdown
+from rich.progress import BarColumn, MofNCompleteColumn, Progress
 from rich.rule import Rule
 from rich.table import Table
 
@@ -70,9 +71,24 @@ def print_no_pending_tasks() -> None:
     )
 
 
+class CenteredProgress(Progress):
+    def get_renderable(self):
+        return Align.center(super().get_renderable())
+
+
 def print_tasks(force_print: bool = False) -> None:
     if not Settings().all_tasks_done() or force_print:
         showtasks()
+        # TODO: Print task progress when all tasks done
+        # TODO: Create in config to show this progress. Default = True
+        with CenteredProgress(
+            BarColumn(bar_width=shutil.get_terminal_size().columns // 2),
+            MofNCompleteColumn(),
+        ) as progress:
+            qty_done = Settings().count_tasks_done()
+            qty_undone = Settings().count_tasks_undone()
+            task1 = progress.add_task('Progress', total=qty_done + qty_undone)
+            progress.update(task1, advance=qty_done)
     else:
         print_no_pending_tasks()
 
