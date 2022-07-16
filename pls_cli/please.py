@@ -230,7 +230,8 @@ def undone(task_id: int) -> None:
     print_tasks()
 
 
-@app.command(short_help='[bright_red]Delete[/] a Task')
+@app.command('del', short_help='[bright_red]Delete[/] a Task')
+@app.command(short_help='[bright_red]Delete[/] a Task', deprecated=True)
 def delete(task_id: int) -> None:
     """Delete an existing task.
 
