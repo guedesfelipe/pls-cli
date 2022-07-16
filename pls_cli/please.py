@@ -475,3 +475,17 @@ def version():
     """Show version :bookmark:"""
     typer.echo(f'pls CLI Version: {__version__}')
     raise typer.Exit()
+
+
+@app.command(rich_help_panel='Utils and Configs')
+def docs():
+    """Launch docs Website :globe_with_meridians:"""
+    center_print(Rule('・Opening [#FFBF00]PLS-CLI[/] docs・', style='#d77dd8'))
+    typer.launch('https://guedesfelipe.github.io/pls-cli/')
+
+
+@app.command(rich_help_panel='Utils and Configs')
+def config():
+    """Launch config directory :open_file_folder:"""
+    center_print(Rule('・Opening config directory・', style='#d77dd8'))
+    typer.launch(Settings().get_full_settings_path(), locate=True)
