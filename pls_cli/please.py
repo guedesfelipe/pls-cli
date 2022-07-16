@@ -80,7 +80,7 @@ def print_tasks(force_print: bool = False) -> None:
 @app.command('tasks', short_help='Show all Tasks :open_book:')
 @app.command(short_help='[s]Show all Tasks :open_book:[/]', deprecated=True)
 def showtasks() -> None:
-    """Display the list of tasks."""
+    """Show all Tasks :open_book:"""
     task_table = Table(
         header_style=table_header_style,
         style=table_header_style,
@@ -108,15 +108,9 @@ def showtasks() -> None:
         print_no_pending_tasks()
 
 
-@app.command(
-    short_help='[bold green]Add[/bold green] a Task :sparkles: [light_slate_grey italic](Add task name inside quotes)[/]'
-)
+@app.command()
 def add(task: str) -> None:
-    """Add new task to the list.
-
-    Args:
-        task (str): task name
-    """
+    """[bold green]Add[/bold green] a Task :sparkles: [light_slate_grey italic](Add task name inside quotes)[/]"""
     new_task = {'name': task, 'done': False}
     settings = Settings().get_settings()
     settings['tasks'].append(new_task)
@@ -128,13 +122,9 @@ def add(task: str) -> None:
     print_tasks()
 
 
-@app.command(short_help='Mark a task as [#bbf2b3]done ✓[/]')
+@app.command()
 def done(taks_id: int) -> None:
-    """Mark a task as "done".
-
-    Args:
-        taks_id (int): task ID
-    """
+    """Mark a task as [#bbf2b3]done ✓[/]"""
     task_id = taks_id - 1
     settings = Settings().get_settings()
     if not settings['tasks']:
@@ -185,11 +175,6 @@ def done(taks_id: int) -> None:
 
 @app.command(short_help=f'Mark a task as [{task_pending_style}]undone ○[/]')
 def undone(task_id: int) -> None:
-    """Unmark a task as "done".
-
-    Args:
-        task_id (int): task ID
-    """
     task_id = task_id - 1
     settings = Settings().get_settings()
     if not settings['tasks']:
@@ -234,11 +219,7 @@ def undone(task_id: int) -> None:
 @app.command('del', short_help='[bright_red]Delete[/] a Task')
 @app.command(short_help='[s]Delete a Task[/s]', deprecated=True)
 def delete(task_id: int) -> None:
-    """Delete an existing task.
-
-    Args:
-        task_id (int): task ID
-    """
+    """[bright_red]Delete[/] a Task"""
     task_id = task_id - 1
     settings = Settings().get_settings()
     if not settings['tasks']:
@@ -274,14 +255,9 @@ def delete(task_id: int) -> None:
     print_tasks(True)
 
 
-@app.command(short_help='Change task order 🔀')
+@app.command()
 def move(old_id: int, new_id: int) -> None:
-    """Change the order of task.
-
-    Args:
-        old_id (int): current task ID
-        new_id (int): new task ID
-    """
+    """Change task order 🔀"""
     settings = Settings().get_settings()
     if not settings['tasks']:
         center_print(
@@ -334,9 +310,9 @@ def move(old_id: int, new_id: int) -> None:
         print_tasks()
 
 
-@app.command(short_help='Clear all tasks :wastebasket:')
+@app.command()
 def clear() -> None:
-    """Clear all tasks."""
+    """Clear all tasks :wastebasket:"""
     typer.confirm('Are you sure you want to delete all tasks?', abort=True)
     settings = Settings().get_settings()
     settings['tasks'] = []
@@ -347,9 +323,9 @@ def clear() -> None:
     )
 
 
-@app.command(short_help='Clean up tasks marked as done :broom:')
+@app.command()
 def clean() -> None:
-    """Clear all tasks."""
+    """Clean up tasks marked as done :broom:"""
     typer.confirm(
         'Are you sure you want to delete all done tasks?', abort=True
     )
@@ -362,29 +338,21 @@ def clean() -> None:
     )
 
 
-@app.command(
-    short_help='Count done tasks :chart_increasing:',
-    rich_help_panel='Integration',
-)
+@app.command(rich_help_panel='Integration')
 def count_done() -> None:
-    """Count Done tasks"""
+    """Count done tasks :chart_increasing:"""
     typer.echo(Settings().count_tasks_done())
 
 
-@app.command(
-    short_help='Count undone tasks :chart_decreasing:',
-    rich_help_panel='Integration',
-)
+@app.command(rich_help_panel='Integration')
 def count_undone() -> None:
-    """Count Undone tasks"""
+    """Count undone tasks :chart_decreasing:"""
     typer.echo(Settings().count_tasks_undone())
 
 
-@app.command(
-    short_help='Change name :name_badge: [light_slate_grey italic](without resetting data)[/]',
-    rich_help_panel='Utils and Configs',
-)
+@app.command(rich_help_panel='Utils and Configs')
 def callme(name: str) -> None:
+    """Change name :name_badge: [light_slate_grey italic](without resetting data)[/]"""
     settings = Settings().get_settings()
     settings['user_name'] = name
     Settings().write_settings(settings)
@@ -397,12 +365,9 @@ def callme(name: str) -> None:
     )
 
 
-@app.command(
-    short_help='Reset all data and run setup :wrench:',
-    rich_help_panel='Utils and Configs',
-)
+@app.command(rich_help_panel='Utils and Configs')
 def setup() -> None:
-    """Initialize the settings file."""
+    """Reset all data and run setup :wrench:"""
     settings: dict = {}
     settings['user_name'] = typer.prompt(
         typer.style('Hello! What can I call you?', fg=typer.colors.CYAN)
