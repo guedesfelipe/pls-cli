@@ -77,7 +77,8 @@ def print_tasks(force_print: bool = False) -> None:
         print_no_pending_tasks()
 
 
-@app.command(short_help='Show all Tasks :open_book:')
+@app.command('tasks', short_help='Show all Tasks :open_book:')
+@app.command(short_help='Show all Tasks :open_book:', deprecated=True)
 def showtasks() -> None:
     """Display the list of tasks."""
     task_table = Table(
