@@ -77,7 +77,8 @@ def print_tasks(force_print: bool = False) -> None:
         print_no_pending_tasks()
 
 
-@app.command(short_help='Show all Tasks :open_book:')
+@app.command('tasks', short_help='Show all Tasks :open_book:')
+@app.command(short_help='[s]Show all Tasks :open_book:[/]', deprecated=True)
 def showtasks() -> None:
     """Display the list of tasks."""
     task_table = Table(
@@ -230,7 +231,8 @@ def undone(task_id: int) -> None:
     print_tasks()
 
 
-@app.command(short_help='[bright_red]Delete[/] a Task')
+@app.command('del', short_help='[bright_red]Delete[/] a Task')
+@app.command(short_help='[s]Delete a Task[/s]', deprecated=True)
 def delete(task_id: int) -> None:
     """Delete an existing task.
 
