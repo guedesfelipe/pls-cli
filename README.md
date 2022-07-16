@@ -33,6 +33,12 @@
 pip install pls-cli
 ```
 
+# ⬆️ Upgrade version
+
+```sh
+pip install pls-cli --upgrade
+```
+
 # ⚙️ Configuration
 
 To run **`pls-cli`** everytime you open your shell's:
