@@ -107,6 +107,21 @@ def tasks_progress(show: bool = True) -> None:
     )
 
 
+@app.command('quotes', rich_help_panel='Utils and Configs')
+def quotes(show: bool = True) -> None:
+    """Show quotes 🏷"""
+    settings = Settings().get_settings()
+    settings['show_quotes'] = show
+    Settings().write_settings(settings)
+    center_print(
+        Rule(
+            'Thanks for letting me know That!',
+            style=insert_or_delete_line_style,
+        ),
+        style=insert_or_delete_text_style,
+    )
+
+
 @app.command('tasks', short_help='Show all Tasks :open_book:')
 @app.command(short_help='[s]Show all Tasks :open_book:[/]', deprecated=True)
 def showtasks() -> None:
@@ -137,13 +152,16 @@ def showtasks() -> None:
     if Settings().all_tasks_done():
         print_no_pending_tasks()
 
+    print_tasks_progress()
+
 
 def print_tasks(force_print: bool = False) -> None:
+    center_print(' ')
     if not Settings().all_tasks_done() or force_print:
         showtasks()
     else:
         print_no_pending_tasks()
-    print_tasks_progress()
+        print_tasks_progress()
 
 
 @app.command()
@@ -411,17 +429,20 @@ def setup() -> None:
         typer.style('Hello! What can I call you?', fg=typer.colors.CYAN)
     )
 
-    code_markdown = Markdown(
-        """
-            pls callme <Your Name Goes Here>
-        """
-    )
-    center_print('\nThanks for letting me know your name!')
-
     show_tasks_progress = typer.prompt(
         typer.style(
             'Do you want show tasks progress? (Y/n)', fg=typer.colors.CYAN
         )
+    )
+
+    show_quotes = typer.prompt(
+        typer.style('Do you want show quotes? (Y/n)', fg=typer.colors.CYAN)
+    )
+
+    code_markdown = Markdown(
+        """
+            pls callme <Your Name Goes Here>
+        """
     )
 
     center_print(
@@ -440,8 +461,19 @@ def setup() -> None:
     )
     console.print(code_markdown)
 
+    code_markdown = Markdown(
+        """
+            pls quotes <--show or --no-show>
+        """
+    )
     center_print(
-        'to apply the changes restart the terminal or use this command:',
+        'If you need to disable or enable quotes later, please use:',
+        style='red',
+    )
+    console.print(code_markdown)
+
+    center_print(
+        'To apply the changes restart the terminal or use this command:',
         style='red',
     )
     code_markdown = Markdown(
@@ -456,6 +488,12 @@ def setup() -> None:
         settings['show_task_progress'] = False
     else:
         settings['show_task_progress'] = True
+
+    if show_quotes in ('n', 'N'):
+        settings['show_quotes'] = False
+    else:
+        settings['show_quotes'] = True
+
     settings['tasks'] = []
     Settings().write_settings(settings)
 
@@ -480,13 +518,14 @@ def show(ctx: typer.Context) -> None:
                     Rule(header_greetings, style=header_greetings_style)
                 )
                 quote = get_rand_quote()
-                center_print(
-                    f'[{quote_style}]"{quote["content"]}"[/]', wrap=True
-                )
-                center_print(
-                    f'[{author_style}][i]・{quote["author"]}・[/i][/]\n',
-                    wrap=True,
-                )
+                if Settings().show_quotes():
+                    center_print(
+                        f'[{quote_style}]"{quote["content"]}"[/]', wrap=True
+                    )
+                    center_print(
+                        f'[{author_style}][i]・{quote["author"]}・[/i][/]',
+                        wrap=True,
+                    )
                 print_tasks()
             else:
                 setup()

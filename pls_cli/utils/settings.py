@@ -52,6 +52,9 @@ class Settings:
     def show_tasks_progress(self) -> bool:
         return self.get_settings().get('show_task_progress', True)
 
+    def show_quotes(self) -> bool:
+        return self.get_settings().get('show_quotes', True)
+
     def all_tasks_done(self) -> bool:
         return all(task.get('done', '') for task in self.get_tasks())
 
