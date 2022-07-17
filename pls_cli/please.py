@@ -100,7 +100,7 @@ def tasks_progress(show: bool = True) -> None:
     Settings().write_settings(settings)
     center_print(
         Rule(
-            'Thanks for letting me know That!',
+            'Thanks for letting me know that!',
             style=insert_or_delete_line_style,
         ),
         style=insert_or_delete_text_style,
@@ -115,7 +115,7 @@ def quotes(show: bool = True) -> None:
     Settings().write_settings(settings)
     center_print(
         Rule(
-            'Thanks for letting me know That!',
+            'Thanks for letting me know that!',
             style=insert_or_delete_line_style,
         ),
         style=insert_or_delete_text_style,
