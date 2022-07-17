@@ -37,8 +37,6 @@ insert_or_delete_text_style = os.getenv(
 )
 
 msg_pending_style = os.getenv('PLS_MSG_PENDING_STYLE', '#61E294')
-table_header_style = os.getenv('PLS_TABLE_HEADER_STYLE', '#844191')
-# TODO: Remove duplicated config
 table_header_style = os.getenv('PLS_TABLE_HEADER_STYLE', '#d77dd8')
 task_done_style = os.getenv('PLS_TASK_DONE_STYLE', '#a0a0a0')
 task_pending_style = os.getenv('PLS_TASK_PENDING_STYLE', '#bb93f2')
