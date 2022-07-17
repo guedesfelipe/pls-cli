@@ -95,3 +95,8 @@ markdown_extensions:
 # Page tree
 nav:
   - 🏠 &nbsp;Home: index.md
+  - ⌨️  &nbsp;Commands: commands.md
+  - 🎨 &nbsp;Color Configuration: color_config.md
+  - 🖼  &nbsp;Themes: themes.md
+  - 🚧 &nbsp; Integration: integration.md
+  - 🆘 &nbsp; Help PLS-CLI - Get Help: help.md

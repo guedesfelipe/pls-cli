@@ -106,20 +106,7 @@ pls
 pls --help
 ```
 
-```
-  add           Add a Task (Add task name inside quotes)
-  clean         Clean up tasks marked as done
-  clear         Clear all tasks
-  count-done    Count done tasks
-  count-undone  Count undone tasks
-  delete        Delete a Task
-  done          Mark a task as done
-  move          Change task order
-  setup         Reset all data and run setup
-  showtasks     Show all Tasks
-  undone        Mark a task as undone
-  version       Show version
-```
+Or for more inforametion you can see in the [documentation](https://guedesfelipe.github.io/pls-cli/commands).
 
 
 # 🎨 Color Configuration
@@ -192,6 +179,13 @@ pls add "[b]Bold[/], [i]Italic[/], [s]Strikethrough[/], [d]Dim[/], [r]Reverse[/]
 ## 🚧 TMUX integration
 
 Using `pls count-done` and `pls count-undone`.
+
+## 🤝 Special thanks
+
+**PLS-CLI** stands on the shouders of giants:
+
+* <a href="https://github.com/tiangolo/typer" target="_blank">Typer</a> for the CLI tool.
+* <a href="https://github.com/Textualize/rich" target="_blank">Rich</a> for the beautiful formatting in terminal.
 
 ---
 
