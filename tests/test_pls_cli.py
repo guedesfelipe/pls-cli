@@ -35,7 +35,7 @@ def test_version_command():
 @patch('pls_cli.utils.settings.Settings.exists_settings', return_value=False)
 @patch('pls_cli.utils.settings.Settings.write_settings')
 def test_first_usage(mock_write_settings, mock_exists_settings):
-    result = runner.invoke(app, input='test\n')
+    result = runner.invoke(app, input='test\ny\n')
     assert result.exit_code == 0
     assert 'Hello! What can I call you?: test' in result.stdout
     assert 'pls callme <Your Name Goes Here>' in result.stdout
