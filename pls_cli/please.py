@@ -45,6 +45,14 @@ quote_style = os.getenv('PLS_QUOTE_STYLE', '#a0a0a0')
 author_style = os.getenv('PLS_AUTHOR_STYLE', '#a0a0a0')
 
 
+def get_terminal_full_width() -> int:
+    return shutil.get_terminal_size().columns
+
+
+def get_terminal_center_width() -> int:
+    return shutil.get_terminal_size().columns // 2
+
+
 def center_print(
     text, style: Union[str, None] = None, wrap: bool = False
 ) -> None:
@@ -53,10 +61,7 @@ def center_print(
         text (Union[str, Rule, Table]): object to center align
         style (str, optional): styling of the object. Defaults to None.
     """
-    if wrap:
-        width = shutil.get_terminal_size().columns // 2
-    else:
-        width = shutil.get_terminal_size().columns
+    width = get_terminal_full_width() if wrap else get_terminal_full_width()
 
     if isinstance(text, Rule):
         console.print(text, style=style, width=width)
@@ -77,9 +82,8 @@ class CenteredProgress(Progress):
 
 def print_tasks_progress() -> None:
     if Settings().show_tasks_progress():
-        # TODO: Refactor this to be a funtion
         with CenteredProgress(
-            BarColumn(bar_width=shutil.get_terminal_size().columns // 2),
+            BarColumn(bar_width=get_terminal_center_width()),
             MofNCompleteColumn(),
         ) as progress:
             qty_done = Settings().count_tasks_done()
