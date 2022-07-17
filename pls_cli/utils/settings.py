@@ -49,6 +49,9 @@ class Settings:
     def get_tasks(self) -> List[dict]:
         return self.get_settings().get('tasks', [])
 
+    def show_tasks_progress(self) -> bool:
+        return self.get_settings().get('show_task_progress', True)
+
     def all_tasks_done(self) -> bool:
         return all(task.get('done', '') for task in self.get_tasks())
 

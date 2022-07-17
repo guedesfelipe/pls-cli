@@ -7,7 +7,7 @@ from typing import Union
 import typer
 from rich import box
 from rich.align import Align
-from rich.console import Console
+from rich.console import Console, RenderableType
 from rich.markdown import Markdown
 from rich.progress import BarColumn, MofNCompleteColumn, Progress
 from rich.rule import Rule
@@ -38,6 +38,7 @@ insert_or_delete_text_style = os.getenv(
 
 msg_pending_style = os.getenv('PLS_MSG_PENDING_STYLE', '#61E294')
 table_header_style = os.getenv('PLS_TABLE_HEADER_STYLE', '#844191')
+# TODO: Remove duplicated config
 table_header_style = os.getenv('PLS_TABLE_HEADER_STYLE', '#d77dd8')
 task_done_style = os.getenv('PLS_TASK_DONE_STYLE', '#a0a0a0')
 task_pending_style = os.getenv('PLS_TASK_PENDING_STYLE', '#bb93f2')
@@ -72,15 +73,13 @@ def print_no_pending_tasks() -> None:
 
 
 class CenteredProgress(Progress):
-    def get_renderable(self):
+    def get_renderable(self) -> RenderableType:
         return Align.center(super().get_renderable())
 
 
-def print_tasks(force_print: bool = False) -> None:
-    if not Settings().all_tasks_done() or force_print:
-        showtasks()
-        # TODO: Print task progress when all tasks done
-        # TODO: Create in config to show this progress. Default = True
+def print_tasks_progress() -> None:
+    if Settings().show_tasks_progress():
+        # TODO: Refactor this to be a funtion
         with CenteredProgress(
             BarColumn(bar_width=shutil.get_terminal_size().columns // 2),
             MofNCompleteColumn(),
@@ -89,8 +88,21 @@ def print_tasks(force_print: bool = False) -> None:
             qty_undone = Settings().count_tasks_undone()
             task1 = progress.add_task('Progress', total=qty_done + qty_undone)
             progress.update(task1, advance=qty_done)
-    else:
-        print_no_pending_tasks()
+
+
+@app.command('tasks-progress', rich_help_panel='Utils and Configs')
+def tasks_progress(show: bool = True) -> None:
+    """Show tasks progress 🎯"""
+    settings = Settings().get_settings()
+    settings['show_task_progress'] = show
+    Settings().write_settings(settings)
+    center_print(
+        Rule(
+            'Thanks for letting me know That!',
+            style=insert_or_delete_line_style,
+        ),
+        style=insert_or_delete_text_style,
+    )
 
 
 @app.command('tasks', short_help='Show all Tasks :open_book:')
@@ -122,6 +134,14 @@ def showtasks() -> None:
 
     if Settings().all_tasks_done():
         print_no_pending_tasks()
+
+
+def print_tasks(force_print: bool = False) -> None:
+    if not Settings().all_tasks_done() or force_print:
+        showtasks()
+    else:
+        print_no_pending_tasks()
+    print_tasks_progress()
 
 
 @app.command()
@@ -395,10 +415,29 @@ def setup() -> None:
         """
     )
     center_print('\nThanks for letting me know your name!')
+
+    show_tasks_progress = typer.prompt(
+        typer.style(
+            'Do you want show tasks progress? (Y/n)', fg=typer.colors.CYAN
+        )
+    )
+
     center_print(
         'If you wanna change your name later, please use:', style='red'
     )
     console.print(code_markdown)
+
+    code_markdown = Markdown(
+        """
+            pls tasks-progress <--show or --no-show>
+        """
+    )
+    center_print(
+        'If you need to disable or enable the task progress bar later, please use:',
+        style='red',
+    )
+    console.print(code_markdown)
+
     center_print(
         'to apply the changes restart the terminal or use this command:',
         style='red',
@@ -411,6 +450,10 @@ def setup() -> None:
     console.print(code_markdown)
 
     settings['initial_setup_done'] = True
+    if show_tasks_progress in ('n', 'N'):
+        settings['show_task_progress'] = False
+    else:
+        settings['show_task_progress'] = True
     settings['tasks'] = []
     Settings().write_settings(settings)
 
