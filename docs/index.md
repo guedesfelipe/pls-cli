@@ -90,7 +90,7 @@ To run **`pls-cli`** everytime you open your shell's:
 
 ## 🤝 Special thanks
 
-**PLS-CLI** stands on the shouders of giants:
+**PLS-CLI** stands on the shoulders of giants:
 
 * <a href="https://github.com/tiangolo/typer" target="_blank">Typer</a> for the CLI tool.
 * <a href="https://github.com/Textualize/rich" target="_blank">Rich</a> for the beautiful formatting in terminal.

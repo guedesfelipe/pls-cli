@@ -28,10 +28,6 @@ There you can select "Custom -> Releases".
 
 By doing it, you will receive notifications (in your email) whenever there's a new release (a new version) of **PLS-CLI** with bug fixes and new features.
 
-## 🆘 Help others with issues in GitHub
-
-You can see existing issues and try and help others, most of the times they are questions that you might already know the answer for. 🤓
-
 ## 🔭 Watch the GitHub repository
 
 You can "watch" **PLS-CLI** in GitHub (clicking the "watch" button at the top right):
@@ -40,7 +36,11 @@ You can "watch" **PLS-CLI** in GitHub (clicking the "watch" button at the top ri
 
 If you select "Watching" instead of "Releases only" you will receive notifications when someone creates a new issue.
 
-Then you can try and help them solve those issues.
+Then you can try to help them solve those issues.
+
+## 🆘 Help others with issues in GitHub
+
+You can see existing issues and try to help others, most of the times they are questions that you might already know the answer for. 🤓
 
 ## 📝Create issues
 
