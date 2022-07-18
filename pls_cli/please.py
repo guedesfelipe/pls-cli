@@ -7,8 +7,9 @@ from typing import Union
 import typer
 from rich import box
 from rich.align import Align
-from rich.console import Console
+from rich.console import Console, RenderableType
 from rich.markdown import Markdown
+from rich.progress import BarColumn, MofNCompleteColumn, Progress
 from rich.rule import Rule
 from rich.table import Table
 
@@ -36,13 +37,20 @@ insert_or_delete_text_style = os.getenv(
 )
 
 msg_pending_style = os.getenv('PLS_MSG_PENDING_STYLE', '#61E294')
-table_header_style = os.getenv('PLS_TABLE_HEADER_STYLE', '#844191')
 table_header_style = os.getenv('PLS_TABLE_HEADER_STYLE', '#d77dd8')
 task_done_style = os.getenv('PLS_TASK_DONE_STYLE', '#a0a0a0')
 task_pending_style = os.getenv('PLS_TASK_PENDING_STYLE', '#bb93f2')
 header_greetings_style = os.getenv('PLS_HEADER_GREETINGS_STYLE', '#FFBF00')
 quote_style = os.getenv('PLS_QUOTE_STYLE', '#a0a0a0')
 author_style = os.getenv('PLS_AUTHOR_STYLE', '#a0a0a0')
+
+
+def get_terminal_full_width() -> int:
+    return shutil.get_terminal_size().columns
+
+
+def get_terminal_center_width() -> int:
+    return shutil.get_terminal_size().columns // 2
 
 
 def center_print(
@@ -53,10 +61,7 @@ def center_print(
         text (Union[str, Rule, Table]): object to center align
         style (str, optional): styling of the object. Defaults to None.
     """
-    if wrap:
-        width = shutil.get_terminal_size().columns // 2
-    else:
-        width = shutil.get_terminal_size().columns
+    width = get_terminal_full_width() if wrap else get_terminal_full_width()
 
     if isinstance(text, Rule):
         console.print(text, style=style, width=width)
@@ -70,11 +75,51 @@ def print_no_pending_tasks() -> None:
     )
 
 
-def print_tasks(force_print: bool = False) -> None:
-    if not Settings().all_tasks_done() or force_print:
-        showtasks()
-    else:
-        print_no_pending_tasks()
+class CenteredProgress(Progress):
+    def get_renderable(self) -> RenderableType:
+        return Align.center(super().get_renderable())
+
+
+def print_tasks_progress() -> None:
+    if Settings().show_tasks_progress():
+        with CenteredProgress(
+            BarColumn(bar_width=get_terminal_center_width()),
+            MofNCompleteColumn(),
+        ) as progress:
+            qty_done = Settings().count_tasks_done()
+            qty_undone = Settings().count_tasks_undone()
+            task1 = progress.add_task('Progress', total=qty_done + qty_undone)
+            progress.update(task1, advance=qty_done)
+
+
+@app.command('tasks-progress', rich_help_panel='Utils and Configs')
+def tasks_progress(show: bool = True) -> None:
+    """Show tasks progress 🎯"""
+    settings = Settings().get_settings()
+    settings['show_task_progress'] = show
+    Settings().write_settings(settings)
+    center_print(
+        Rule(
+            'Thanks for letting me know that!',
+            style=insert_or_delete_line_style,
+        ),
+        style=insert_or_delete_text_style,
+    )
+
+
+@app.command('quotes', rich_help_panel='Utils and Configs')
+def quotes(show: bool = True) -> None:
+    """Show quotes 🏷"""
+    settings = Settings().get_settings()
+    settings['show_quotes'] = show
+    Settings().write_settings(settings)
+    center_print(
+        Rule(
+            'Thanks for letting me know that!',
+            style=insert_or_delete_line_style,
+        ),
+        style=insert_or_delete_text_style,
+    )
 
 
 @app.command('tasks', short_help='Show all Tasks :open_book:')
@@ -106,6 +151,17 @@ def showtasks() -> None:
 
     if Settings().all_tasks_done():
         print_no_pending_tasks()
+
+    print_tasks_progress()
+
+
+def print_tasks(force_print: bool = False) -> None:
+    center_print(' ')
+    if not Settings().all_tasks_done() or force_print:
+        showtasks()
+    else:
+        print_no_pending_tasks()
+        print_tasks_progress()
 
 
 @app.command()
@@ -373,18 +429,51 @@ def setup() -> None:
         typer.style('Hello! What can I call you?', fg=typer.colors.CYAN)
     )
 
+    show_tasks_progress = typer.prompt(
+        typer.style(
+            'Do you want show tasks progress? (Y/n)', fg=typer.colors.CYAN
+        )
+    )
+
+    show_quotes = typer.prompt(
+        typer.style('Do you want show quotes? (Y/n)', fg=typer.colors.CYAN)
+    )
+
     code_markdown = Markdown(
         """
             pls callme <Your Name Goes Here>
         """
     )
-    center_print('\nThanks for letting me know your name!')
+
     center_print(
         'If you wanna change your name later, please use:', style='red'
     )
     console.print(code_markdown)
+
+    code_markdown = Markdown(
+        """
+            pls tasks-progress <--show or --no-show>
+        """
+    )
     center_print(
-        'to apply the changes restart the terminal or use this command:',
+        'If you need to disable or enable the task progress bar later, please use:',
+        style='red',
+    )
+    console.print(code_markdown)
+
+    code_markdown = Markdown(
+        """
+            pls quotes <--show or --no-show>
+        """
+    )
+    center_print(
+        'If you need to disable or enable quotes later, please use:',
+        style='red',
+    )
+    console.print(code_markdown)
+
+    center_print(
+        'To apply the changes restart the terminal or use this command:',
         style='red',
     )
     code_markdown = Markdown(
@@ -395,6 +484,16 @@ def setup() -> None:
     console.print(code_markdown)
 
     settings['initial_setup_done'] = True
+    if show_tasks_progress in ('n', 'N'):
+        settings['show_task_progress'] = False
+    else:
+        settings['show_task_progress'] = True
+
+    if show_quotes in ('n', 'N'):
+        settings['show_quotes'] = False
+    else:
+        settings['show_quotes'] = True
+
     settings['tasks'] = []
     Settings().write_settings(settings)
 
@@ -419,13 +518,14 @@ def show(ctx: typer.Context) -> None:
                     Rule(header_greetings, style=header_greetings_style)
                 )
                 quote = get_rand_quote()
-                center_print(
-                    f'[{quote_style}]"{quote["content"]}"[/]', wrap=True
-                )
-                center_print(
-                    f'[{author_style}][i]・{quote["author"]}・[/i][/]\n',
-                    wrap=True,
-                )
+                if Settings().show_quotes():
+                    center_print(
+                        f'[{quote_style}]"{quote["content"]}"[/]', wrap=True
+                    )
+                    center_print(
+                        f'[{author_style}][i]・{quote["author"]}・[/i][/]',
+                        wrap=True,
+                    )
                 print_tasks()
             else:
                 setup()

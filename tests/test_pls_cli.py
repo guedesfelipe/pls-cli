@@ -35,14 +35,21 @@ def test_version_command():
 @patch('pls_cli.utils.settings.Settings.exists_settings', return_value=False)
 @patch('pls_cli.utils.settings.Settings.write_settings')
 def test_first_usage(mock_write_settings, mock_exists_settings):
-    result = runner.invoke(app, input='test\n')
+    result = runner.invoke(app, input='test\ny\nY\n')
     assert result.exit_code == 0
     assert 'Hello! What can I call you?: test' in result.stdout
     assert 'pls callme <Your Name Goes Here>' in result.stdout
-    assert 'Thanks for letting me know your name!' in result.stdout
     assert 'If you wanna change your name later, please use:' in result.stdout
     assert (
-        'to apply the changes restart the terminal or use this command:'
+        'To apply the changes restart the terminal or use this command:'
+        in result.stdout
+    )
+    assert (
+        'If you need to disable or enable the task progress bar later, please use:'
+        in result.stdout
+    )
+    assert (
+        'If you need to disable or enable quotes later, please use:'
         in result.stdout
     )
 
