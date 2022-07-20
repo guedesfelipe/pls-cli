@@ -44,6 +44,10 @@ header_greetings_style = os.getenv('PLS_HEADER_GREETINGS_STYLE', '#FFBF00')
 quote_style = os.getenv('PLS_QUOTE_STYLE', '#a0a0a0')
 author_style = os.getenv('PLS_AUTHOR_STYLE', '#a0a0a0')
 
+background_bar_style = os.getenv('PLS_BACKGROUND_BAR_STYLE', 'bar.back')
+complete_bar_style = os.getenv('PLS_COMPLETE_BAR_STYLE', 'bar.complete')
+finished_bar_style = os.getenv('PLS_FINISHED_BAR_STYLE', 'bar.done')
+
 
 def get_terminal_full_width() -> int:
     return shutil.get_terminal_size().columns
@@ -83,7 +87,12 @@ class CenteredProgress(Progress):
 def print_tasks_progress() -> None:
     if Settings().show_tasks_progress():
         with CenteredProgress(
-            BarColumn(bar_width=get_terminal_center_width()),
+            BarColumn(
+                bar_width=get_terminal_center_width(),
+                style=background_bar_style,
+                complete_style=complete_bar_style,
+                finished_style=finished_bar_style,
+            ),
             MofNCompleteColumn(),
         ) as progress:
             qty_done = Settings().count_tasks_done()
