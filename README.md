@@ -24,7 +24,7 @@
   <em>If you are like me, and your terminal is your home, this CLI will make your life better, I hope 😄</em>
   <br>
   <br>
-  <img src="https://user-images.githubusercontent.com/25853920/175831710-20fa013d-5b83-4fe0-baf9-f035345c9192.gif" />
+  <img src="https://user-images.githubusercontent.com/25853920/180621358-bf89cd86-2109-41e7-9fea-bbd1a6a56ff4.gif" />
 </p>
 
 # 🛠 Installation
