@@ -151,6 +151,10 @@ export PLS_TASK_PENDING_STYLE="#bb93f2"
 export PLS_HEADER_GREETINGS_STYLE="#FFBF00"
 export PLS_QUOTE_STYLE="#a0a0a0"
 export PLS_AUTHOR_STYLE="#a0a0a0"
+
+export PLS_BACKGROUND_BAR_STYLE="bar.back"
+export PLS_COMPLETE_BAR_STYLE="bar.complete"
+export PLS_FINISHED_BAR_STYLE="bar.done"
 ```
 
 <details><p><summary>You can specify the background color like this:</p></summary>

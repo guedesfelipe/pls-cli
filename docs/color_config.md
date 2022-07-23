@@ -39,6 +39,10 @@ export PLS_TASK_PENDING_STYLE="#bb93f2"
 export PLS_HEADER_GREETINGS_STYLE="#FFBF00"
 export PLS_QUOTE_STYLE="#a0a0a0"
 export PLS_AUTHOR_STYLE="#a0a0a0"
+
+export PLS_BACKGROUND_BAR_STYLE="bar.back"
+export PLS_COMPLETE_BAR_STYLE="bar.complete"
+export PLS_FINISHED_BAR_STYLE="bar.done"
 ```
 
 
@@ -62,4 +66,4 @@ If you create some theme, share with us <a href="https://github.com/guedesfelipe
 
     <img src="https://user-images.githubusercontent.com/25853920/175835339-8059bc7e-0538-4e2d-aed8-80487d7b2478.png" />
 
-
+To learn more check out the <a href="https://rich.readthedocs.io/en/stable/markup.html" target="_blank">Rich docs</a>.
