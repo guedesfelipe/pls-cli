@@ -24,13 +24,19 @@
   <em>If you are like me, and your terminal is your home, this CLI will make your life better, I hope 😄</em>
   <br>
   <br>
-  <img src="https://user-images.githubusercontent.com/25853920/175831710-20fa013d-5b83-4fe0-baf9-f035345c9192.gif" />
+  <img src="https://user-images.githubusercontent.com/25853920/180621358-bf89cd86-2109-41e7-9fea-bbd1a6a56ff4.gif" />
 </p>
 
 # 🛠 Installation
 
 ```sh
 pip install pls-cli
+```
+
+# ⬆️ Upgrade version
+
+```sh
+pip install pls-cli --upgrade
 ```
 
 # ⚙️ Configuration
@@ -100,20 +106,7 @@ pls
 pls --help
 ```
 
-```
-  add           Add a Task (Add task name inside quotes)
-  clean         Clean up tasks marked as done
-  clear         Clear all tasks
-  count-done    Count done tasks
-  count-undone  Count undone tasks
-  delete        Delete a Task
-  done          Mark a task as done
-  move          Change task order
-  setup         Reset all data and run setup
-  showtasks     Show all Tasks
-  undone        Mark a task as undone
-  version       Show version
-```
+Or for more inforametion you can see in the [documentation](https://guedesfelipe.github.io/pls-cli/commands).
 
 
 # 🎨 Color Configuration
@@ -152,13 +145,16 @@ export PLS_INSERT_DELETE_LINE_STYLE="#bb93f2"
 export PLS_INSERT_DELETE_TEXT_STYLE="#a0a0a0"
 
 export PLS_MSG_PENDING_STYLE="#61E294"
-export PLS_TABLE_HEADER_STYLE="#844191"
 export PLS_TABLE_HEADER_STYLE="#d77dd8"
 export PLS_TASK_DONE_STYLE="#a0a0a0"
 export PLS_TASK_PENDING_STYLE="#bb93f2"
 export PLS_HEADER_GREETINGS_STYLE="#FFBF00"
 export PLS_QUOTE_STYLE="#a0a0a0"
 export PLS_AUTHOR_STYLE="#a0a0a0"
+
+export PLS_BACKGROUND_BAR_STYLE="bar.back"
+export PLS_COMPLETE_BAR_STYLE="bar.complete"
+export PLS_FINISHED_BAR_STYLE="bar.done"
 ```
 
 <details><p><summary>You can specify the background color like this:</p></summary>
@@ -186,6 +182,13 @@ pls add "[b]Bold[/], [i]Italic[/], [s]Strikethrough[/], [d]Dim[/], [r]Reverse[/]
 ## 🚧 TMUX integration
 
 Using `pls count-done` and `pls count-undone`.
+
+## 🤝 Special thanks
+
+**PLS-CLI** stands on the shoulders of giants:
+
+* <a href="https://github.com/tiangolo/typer" target="_blank">Typer</a> for the CLI tool.
+* <a href="https://github.com/Textualize/rich" target="_blank">Rich</a> for the beautiful formatting in terminal.
 
 ---
 
