@@ -11,6 +11,7 @@ edit_uri: ""
 
 theme:
   name: material
+  custom_dir: docs/overrides
   icon:
     logo: octicons/terminal-16
   features:
