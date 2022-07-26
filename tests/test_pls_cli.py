@@ -89,6 +89,18 @@ def test_config_ok_no_tasks_pending(
     assert 'Looking good, no pending tasks ✨ 🍰 ✨' in result.stdout
 
 
+@patch('pls_cli.utils.settings.Settings.exists_settings', return_value=True)
+@patch(
+    'pls_cli.utils.settings.Settings.get_tasks',
+    return_value=[{'name': 'Task 1', 'done': True}],
+)
+def test_config_ok_no_tasks_pending_with_progress(
+    mock_get_tasks, mock_exists_settings
+):
+    result = runner.invoke(app)
+    assert result.exit_code == 0
+
+
 @patch(
     'pls_cli.utils.settings.Settings.get_settings',
     return_value={
