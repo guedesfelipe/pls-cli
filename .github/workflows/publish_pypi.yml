@@ -1,4 +1,4 @@
-name: Upload readtime_cli
+name: Upload PLS-CLI
 
 on:
   release:
