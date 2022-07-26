@@ -2,10 +2,9 @@ from unittest.mock import patch
 
 import pkg_resources
 from freezegun import freeze_time
-from typer.testing import CliRunner
-
 from pls_cli import __version__
 from pls_cli.please import app
+from typer.testing import CliRunner
 
 runner = CliRunner()
 
@@ -87,6 +86,18 @@ def test_config_ok_no_tasks_pending(
     assert result.exit_code == 0
     assert "Hello Test name! It's 14 Jan | 03:21 AM" in result.stdout
     assert 'Looking good, no pending tasks ✨ 🍰 ✨' in result.stdout
+
+@patch('pls_cli.utils.settings.Settings.exists_settings', return_value=True)
+@patch(
+    'pls_cli.utils.settings.Settings.get_tasks',
+    return_value=[{'name': 'Task 1', 'done': True}],
+)
+def test_config_ok_no_tasks_pending_with_progress(
+    mock_get_tasks,
+     mock_exists_settings
+):
+    result = runner.invoke(app)
+    assert result.exit_code == 0
 
 
 @patch(
