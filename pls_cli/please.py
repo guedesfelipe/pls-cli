@@ -46,7 +46,7 @@ author_style = os.getenv('PLS_AUTHOR_STYLE', '#a0a0a0')
 
 background_bar_style = os.getenv('PLS_BACKGROUND_BAR_STYLE', 'bar.back')
 complete_bar_style = os.getenv('PLS_COMPLETE_BAR_STYLE', 'bar.complete')
-finished_bar_style = os.getenv('PLS_FINISHED_BAR_STYLE', 'bar.done')
+finished_bar_style = os.getenv('PLS_FINISHED_BAR_STYLE', 'bar.finished')
 
 
 def get_terminal_full_width() -> int:
