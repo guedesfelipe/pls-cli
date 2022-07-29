@@ -12,6 +12,7 @@ class Settings:
             self.config_path, self.config_name
         )
         self.create_dir_if_not_exists()
+        self.minimal_default_config = {'user_name': '', 'tasks': []}
 
     def get_config_name(self):
         return 'config.json'
@@ -35,7 +36,7 @@ class Settings:
                 self.full_settings_path, encoding='utf-8'
             ) as config_file:
                 return json.load(config_file)
-        return {}
+        return self.minimal_default_config
 
     def write_settings(self, data: dict) -> None:
         with open(
