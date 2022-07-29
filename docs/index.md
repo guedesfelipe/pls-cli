@@ -88,6 +88,10 @@ To run **`pls-cli`** everytime you open your shell's:
     pls
     ```
 
+!!! attention
+
+    Restart your terminal to apply the changes and start configuring your PLS-CLI. 🎉
+
 ## 🤝 Special thanks
 
 **PLS-CLI** stands on the shoulders of giants:

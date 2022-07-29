@@ -100,6 +100,8 @@ pls
 
 </details>
 
+⚠️ Restart your terminal to apply the changes and start configuring your PLS-CLI. 🎉
+
 # ⌨️ Commands
 
 ```sh
