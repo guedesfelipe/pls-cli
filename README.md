@@ -154,7 +154,7 @@ export PLS_AUTHOR_STYLE="#a0a0a0"
 
 export PLS_BACKGROUND_BAR_STYLE="bar.back"
 export PLS_COMPLETE_BAR_STYLE="bar.complete"
-export PLS_FINISHED_BAR_STYLE="bar.done"
+export PLS_FINISHED_BAR_STYLE="bar.finished"
 ```
 
 <details><p><summary>You can specify the background color like this:</p></summary>
