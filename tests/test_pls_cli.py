@@ -52,6 +52,10 @@ def test_first_usage(mock_write_settings, mock_exists_settings):
         'If you need to disable or enable quotes later, please use:'
         in result.stdout
     )
+    assert (
+        'If you want to change the language, please use:'
+        in result.stdout
+    )
 
 
 @freeze_time('2022-01-14 03:21:34')
