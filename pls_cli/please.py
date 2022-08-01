@@ -130,6 +130,20 @@ def quotes(show: bool = True) -> None:
         style=insert_or_delete_text_style,
     )
 
+@app.command('language', rich_help_panel='Utils and Configs')
+def language(lang: str) -> None:
+    """Choose language 🛩️"""
+    settings = Settings().get_settings()
+    settings['language'] = lang
+    Settings().write_settings(settings)
+    center_print(
+        Rule(
+            'Thanks for letting me know that!',
+            style=insert_or_delete_line_style,
+        ),
+        style=insert_or_delete_text_style,
+    )
+
 
 @app.command('tasks', short_help='Show all Tasks :open_book:')
 @app.command(short_help='[s]Show all Tasks :open_book:[/]', deprecated=True)
@@ -448,6 +462,10 @@ def setup() -> None:
         typer.style('Do you want show quotes? (Y/n)', fg=typer.colors.CYAN)
     )
 
+    show_language = typer.prompt(
+        typer.style('Choose the language of quotes (en, es)', fg=typer.colors.CYAN)
+    ).lower()
+
     code_markdown = Markdown(
         """
             pls callme <Your Name Goes Here>
@@ -481,6 +499,18 @@ def setup() -> None:
     )
     console.print(code_markdown)
 
+    code_markdown = Markdown(
+        """
+            pls language <language>
+        """
+    )
+
+    center_print(
+        'If you want to change the language of quotes, please use:',
+        style='red',
+    )
+    console.print(code_markdown)
+
     center_print(
         'To apply the changes restart the terminal or use this command:',
         style='red',
@@ -503,6 +533,11 @@ def setup() -> None:
     else:
         settings['show_quotes'] = True
 
+    if show_language in ('en', 'es'):
+        settings['language'] = show_language
+    else:
+        settings['language'] = 'en'
+
     settings['tasks'] = []
     Settings().write_settings(settings)
 
@@ -522,11 +557,12 @@ def show(ctx: typer.Context) -> None:
             if Settings().exists_settings():
                 date_now = datetime.datetime.now()
                 user_name = Settings().get_name()
+                language = Settings().get_language()
                 header_greetings = f'[{header_greetings_style}] Hello {user_name}! It\'s {date_now.strftime("%d %b | %I:%M %p")}[/]'
                 center_print(
                     Rule(header_greetings, style=header_greetings_style)
                 )
-                quote = get_rand_quote()
+                quote = get_rand_quote(lang=language)
                 if Settings().show_quotes():
                     center_print(
                         f'[{quote_style}]"{quote["content"]}"[/]', wrap=True
