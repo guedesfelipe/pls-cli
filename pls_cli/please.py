@@ -130,19 +130,68 @@ def quotes(show: bool = True) -> None:
         style=insert_or_delete_text_style,
     )
 
+
 @app.command('language', rich_help_panel='Utils and Configs')
 def language(lang: str) -> None:
     """Choose language 🛩️"""
     settings = Settings().get_settings()
-    settings['language'] = lang
-    Settings().write_settings(settings)
-    center_print(
+    list_language = Settings().get_list_language()
+    if lang.lower() in list(list_language.keys()):
+        if settings['language'] == lang:
+            pass
+        else:
+            settings['language'] = lang
+            Settings().write_settings(settings)
+            # Here function Dowload quotes 
+        
+        center_print(
         Rule(
             'Thanks for letting me know that!',
             style=insert_or_delete_line_style,
         ),
         style=insert_or_delete_text_style,
+        )
+    else:        
+        center_print(
+            Rule(
+                'Wrong option!',
+                style=insert_or_delete_line_style,
+            ),
+            style=insert_or_delete_text_style,
+        )
+        code_markdown = Markdown(
+        """
+            pls list-language 
+        """
+        )
+
+        center_print(
+            'If you want to list the language of quotes, please use:',
+            style='red',
+        )
+        console.print(code_markdown)
+
+@app.command('list-language', rich_help_panel='Utils and Configs')
+def list_language() -> None:
+    """List language options 💬"""
+    list_language = Settings().get_list_language()
+
+    task_table = Table(
+        header_style=table_header_style,
+        style=table_header_style,
+        box=box.SIMPLE_HEAVY,
     )
+
+    task_table.add_column('language', justify='center')
+    task_table.add_column('', justify='center')
+
+    for command, language in list_language.items():
+        
+        command = f'{command}'
+        language = f'{language}'
+
+        task_table.add_row(command, language)
+    center_print(task_table)
 
 
 @app.command('tasks', short_help='Show all Tasks :open_book:')
@@ -462,10 +511,6 @@ def setup() -> None:
         typer.style('Do you want show quotes? (Y/n)', fg=typer.colors.CYAN)
     )
 
-    show_language = typer.prompt(
-        typer.style('Choose the language of quotes (en, es)', fg=typer.colors.CYAN)
-    ).lower()
-
     code_markdown = Markdown(
         """
             pls callme <Your Name Goes Here>
@@ -511,6 +556,19 @@ def setup() -> None:
     )
     console.print(code_markdown)
 
+    code_markdown = Markdown(
+        """
+            pls list-language 
+        """
+    )
+
+    center_print(
+        'If you want to list the language of quotes, please use:',
+        style='red',
+    )
+    console.print(code_markdown)
+
+
     center_print(
         'To apply the changes restart the terminal or use this command:',
         style='red',
@@ -533,10 +591,7 @@ def setup() -> None:
     else:
         settings['show_quotes'] = True
 
-    if show_language in ('en', 'es'):
-        settings['language'] = show_language
-    else:
-        settings['language'] = 'en'
+    settings['language'] = 'en'
 
     settings['tasks'] = []
     Settings().write_settings(settings)
