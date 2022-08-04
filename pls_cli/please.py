@@ -142,16 +142,16 @@ def language(lang: str) -> None:
         else:
             settings['language'] = lang
             Settings().write_settings(settings)
-            # Here function Dowload quotes 
-        
+            # Here function Dowload quotes
+
         center_print(
-        Rule(
-            'Thanks for letting me know that!',
-            style=insert_or_delete_line_style,
-        ),
-        style=insert_or_delete_text_style,
+            Rule(
+                'Thanks for letting me know that!',
+                style=insert_or_delete_line_style,
+            ),
+            style=insert_or_delete_text_style,
         )
-    else:        
+    else:
         center_print(
             Rule(
                 'Wrong option!',
@@ -160,7 +160,7 @@ def language(lang: str) -> None:
             style=insert_or_delete_text_style,
         )
         code_markdown = Markdown(
-        """
+            """
             pls list-language 
         """
         )
@@ -170,6 +170,7 @@ def language(lang: str) -> None:
             style='red',
         )
         console.print(code_markdown)
+
 
 @app.command('list-language', rich_help_panel='Utils and Configs')
 def list_language() -> None:
@@ -186,7 +187,7 @@ def list_language() -> None:
     task_table.add_column('', justify='center')
 
     for command, language in list_language.items():
-        
+
         command = f'{command}'
         language = f'{language}'
 
@@ -567,7 +568,6 @@ def setup() -> None:
         style='red',
     )
     console.print(code_markdown)
-
 
     center_print(
         'To apply the changes restart the terminal or use this command:',
