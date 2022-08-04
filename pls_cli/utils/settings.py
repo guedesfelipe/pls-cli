@@ -57,7 +57,11 @@ class Settings:
         return self.get_settings().get('show_quotes', True)
 
     def get_language(self) -> str:
-        return self.get_settings().get('language', '')
+        return self.get_settings().get('language', 'en')
+
+    def get_list_language(self) -> dict:
+        list_language = {'en': 'English', 'es': 'Spanish'}
+        return list_language
 
     def all_tasks_done(self) -> bool:
         return all(task.get('done', '') for task in self.get_tasks())
