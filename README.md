@@ -108,7 +108,7 @@ pls
 pls --help
 ```
 
-Or for more inforametion you can see in the [documentation](https://guedesfelipe.github.io/pls-cli/commands).
+Or for more information you can see in the [documentation](https://guedesfelipe.github.io/pls-cli/commands).
 
 
 # 🎨 Color Configuration
