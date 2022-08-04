@@ -612,12 +612,11 @@ def show(ctx: typer.Context) -> None:
             if Settings().exists_settings():
                 date_now = datetime.datetime.now()
                 user_name = Settings().get_name()
-                language = Settings().get_language()
                 header_greetings = f'[{header_greetings_style}] Hello {user_name}! It\'s {date_now.strftime("%d %b | %I:%M %p")}[/]'
                 center_print(
                     Rule(header_greetings, style=header_greetings_style)
                 )
-                quote = get_rand_quote(lang=language)
+                quote = get_rand_quote()
                 if Settings().show_quotes():
                     center_print(
                         f'[{quote_style}]"{quote["content"]}"[/]', wrap=True
