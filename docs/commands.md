@@ -25,6 +25,7 @@ pls --help
 │ del          Delete a Task                                                   │
 │ delete       Delete a Task                                    (deprecated)   │
 │ done         Mark a task as done ✓                                           │
+│ edit         Edit a Task                                                     │
 │ move         Change task order 🔀                                            │
 │ showtasks    Show all Tasks 📖                                (deprecated)   │
 │ tasks        Show all Tasks 📖                                               │
