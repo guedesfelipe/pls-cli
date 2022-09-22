@@ -5,6 +5,7 @@ import shutil
 from typing import Union
 
 import typer
+from enum import Enum
 from rich import box
 from rich.align import Align
 from rich.console import Console, RenderableType
@@ -131,68 +132,31 @@ def quotes(show: bool = True) -> None:
     )
 
 
-@app.command('language', rich_help_panel='Utils and Configs')
-def language(lang: str) -> None:
+class language(str, Enum):
+    english = "english"
+    spanish = "spanish"
+
+
+@app.command("language", rich_help_panel="Utils and Configs")
+def language(
+    lang: language = typer.Option(language.english, case_sensitive=False)
+) -> None:
     """Choose language 🛩️"""
     settings = Settings().get_settings()
-    list_language = Settings().get_list_language()
-    if lang.lower() in list(list_language.keys()):
-        if settings['language'] == lang:
-            pass
-        else:
-            settings['language'] = lang
-            Settings().write_settings(settings)
-            # Here function Dowload quotes
-
-        center_print(
-            Rule(
-                'Thanks for letting me know that!',
-                style=insert_or_delete_line_style,
-            ),
-            style=insert_or_delete_text_style,
-        )
+    if settings["language"] == lang:
+        pass
     else:
-        center_print(
-            Rule(
-                'Wrong option!',
-                style=insert_or_delete_line_style,
-            ),
-            style=insert_or_delete_text_style,
-        )
-        code_markdown = Markdown(
-            """
-            pls list-language 
-        """
-        )
+        settings["language"] = lang
+        Settings().write_settings(settings)
+        # Here function Dowload quotes
 
-        center_print(
-            'If you want to list the language of quotes, please use:',
-            style='red',
-        )
-        console.print(code_markdown)
-
-
-@app.command('list-language', rich_help_panel='Utils and Configs')
-def list_language() -> None:
-    """List language options 💬"""
-    list_language = Settings().get_list_language()
-
-    task_table = Table(
-        header_style=table_header_style,
-        style=table_header_style,
-        box=box.SIMPLE_HEAVY,
+    center_print(
+        Rule(
+            "Thanks for letting me know that!",
+            style=insert_or_delete_line_style,
+        ),
+        style=insert_or_delete_text_style,
     )
-
-    task_table.add_column('language', justify='center')
-    task_table.add_column('', justify='center')
-
-    for command, language in list_language.items():
-
-        command = f'{command}'
-        language = f'{language}'
-
-        task_table.add_row(command, language)
-    center_print(task_table)
 
 
 @app.command('tasks', short_help='Show all Tasks :open_book:')
