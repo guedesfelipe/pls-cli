@@ -144,19 +144,31 @@ def language(
     """Choose language 🛩️"""
     settings = Settings().get_settings()
     if settings["language"] == lang:
-        pass
+        center_print(
+            Rule(
+                f"Current language is: {lang}",
+                style=insert_or_delete_line_style,
+            ),
+            style=insert_or_delete_text_style,
+        )
     else:
         settings["language"] = lang
         Settings().write_settings(settings)
         # Here function Dowload quotes
-
-    center_print(
-        Rule(
-            "Thanks for letting me know that!",
-            style=insert_or_delete_line_style,
-        ),
-        style=insert_or_delete_text_style,
-    )
+        center_print(
+            Rule(
+                "Thanks for letting me know that!",
+                style=insert_or_delete_line_style,
+            ),
+            style=insert_or_delete_text_style,
+        )
+        center_print(
+            Rule(
+                f"Current language is: {lang}",
+                style=insert_or_delete_line_style,
+            ),
+            style=insert_or_delete_text_style,
+        )
 
 
 @app.command('tasks', short_help='Show all Tasks :open_book:')
@@ -511,24 +523,12 @@ def setup() -> None:
 
     code_markdown = Markdown(
         """
-            pls language <language>
+            pls language --lang <language>
         """
     )
 
     center_print(
         'If you want to change the language of quotes, please use:',
-        style='red',
-    )
-    console.print(code_markdown)
-
-    code_markdown = Markdown(
-        """
-            pls list-language 
-        """
-    )
-
-    center_print(
-        'If you want to list the language of quotes, please use:',
         style='red',
     )
     console.print(code_markdown)
@@ -555,7 +555,7 @@ def setup() -> None:
     else:
         settings['show_quotes'] = True
 
-    settings['language'] = 'en'
+    settings['language'] = 'english'
 
     settings['tasks'] = []
     Settings().write_settings(settings)
