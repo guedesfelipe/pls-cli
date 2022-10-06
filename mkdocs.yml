@@ -2,7 +2,7 @@
 site_name: PLS-CLI
 site_url: https://guedesfelipe.github.io/pls-cli/
 site_author: Felipe Guedes
-site_description: PLS-CLI docs
+site_description: PLS-CLI Minimalist and full configurable greetings and TODO list, say please cli
 
 # Repository
 repo_name: guedesfelipe/pls-cli
@@ -32,6 +32,13 @@ theme:
         name: Switch to dark mode
       primary: amber
       accent: deep orange
+
+# Plugins
+plugins:
+  - search
+  - meta-descriptions:
+      export_csv: false
+      quiet: false
 
 # Customization
 extra:
