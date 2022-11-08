@@ -20,7 +20,7 @@ pytest = "^7.2"
 blue = "^0.9.1"
 isort = "^5.10.1"
 prospector = { extras = ["with_mypy"], version = "^1.7.7" }
-pytest-cov = "^3.0.0"
+pytest-cov = "^4.0.0"
 safety = "^2.1.1"
 types-setuptools = "^65.5.0"
 freezegun = "^1.2.2"
