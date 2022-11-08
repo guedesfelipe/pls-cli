@@ -565,3 +565,47 @@ def config():
     """Launch config directory :open_file_folder:"""
     center_print(Rule('・Opening config directory・', style='#d77dd8'))
     typer.launch(Settings().get_full_settings_path(), locate=True)
+
+
+@app.command()
+def edit(task_id: int, task: str):
+    """[bold yellow]Edit[/bold yellow] a task by id ✏️ [light_slate_grey italic] (Add task name inside quotes)[/]"""
+    settings = Settings().get_settings()
+    tasks = settings['tasks']
+
+    # check if task list is empty
+    if not tasks:
+        center_print(
+            f'[{warning_text_style}]Currently, you have no tasks to edit[/] 📝'
+        )
+        print_tasks_progress()
+        raise typer.Exit()
+
+    print_tasks()
+
+    # check if task exists
+    if task_id and task_id <= len(tasks):
+        old_task = tasks[task_id - 1]['name']
+        tasks[task_id - 1]['name'] = task
+    else:
+        center_print(
+            f'\nTask #{task_id} was not found, pls choose an existing ID\n',
+            style=error_text_style,
+        )
+        raise typer.Exit()
+
+    # confirm edit task
+    center_print(
+        f'\nOld Task: {old_task}\nEdited Task: {task}\n',
+        style=insert_or_delete_text_style,
+    )
+    if not typer.confirm(
+        f'Are you sure you want to edit Task #{task_id}?', show_default=True
+    ):
+        typer.clear()
+        print_tasks()
+        raise typer.Exit()
+
+    Settings().write_settings(settings)
+    typer.clear()
+    print_tasks()

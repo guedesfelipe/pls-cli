@@ -127,3 +127,95 @@ def test_add_task(
     assert 'ID   TASK       STATUS' in result.stdout
     assert '1    Task 1       ✓' in result.stdout
     assert '2    New task     ○' in result.stdout
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [],
+    },
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+def test_edit_task_with_invalid_id(mock_write_settings, mock_get_settings):
+    result = runner.invoke(app, ['edit', '1', 'Edited'])
+    assert 'Currently, you have no tasks' in result.stdout
+    assert result.exit_code == 0
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [{'name': 'Task 1', 'done': False}],
+    },
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+def test_edit_not_found_task(mock_write_settings, mock_get_settings):
+    result = runner.invoke(app, ['edit', '2', 'Task 2 edited'])
+    assert result.exit_code == 0
+    assert 'Task #2 was not found, pls choose an existing ID' in result.stdout
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [
+            {'name': 'Task 1', 'done': False},
+            {'name': 'Old task text', 'done': False},
+        ],
+    },
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+def test_edit_task_success(mock_write_settings, mock_get_settings):
+    result = runner.invoke(app, ['edit', '2', 'New task text'], input='y')
+    output = result.stdout
+    assert result.exit_code == 0
+    assert 'Old Task: Old task text' in output
+    assert 'Edited Task: New task text' in output
+    assert 'Are you sure you want to edit Task #2? [y/N]: y' in output
+    assert '1    Task 1            ○' in output
+    assert '2    New task text     ○' in output
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [
+            {'name': 'Task 1', 'done': False},
+            {'name': 'Task 2', 'done': False},
+        ],
+    },
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+def test_edit_task_aborted(mock_write_settings, mock_get_settings):
+    result = runner.invoke(app, ['edit', '2', 'Task 2 edited'], input='N\n')
+    output = result.stdout
+    assert result.exit_code == 0
+    assert 'Old Task: Task 2' in output
+    assert 'Edited Task: Task 2 edited' in output
+    assert 'Are you sure you want to edit Task #2? [y/N]: N' in output
+    assert '1    Task 1            ○' in output
+    assert '2    Task 2 edited     ○' in output
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [],
+    },
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+def test_edit_empty_tasks(mock_write_settings, mock_get_settings):
+    result = runner.invoke(app, ['edit', '1', 'Task 1 edited'])
+    output = result.stdout
+    assert result.exit_code == 0
+    assert 'Currently, you have no tasks to edit 📝' in output
