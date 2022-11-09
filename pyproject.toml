@@ -14,7 +14,6 @@ keywords = ["pls", "please", "todo", "cli"]
 python = "^3.7"
 rich = "^12.4.4"
 typer = { extras = ["all"], version = "^0.6.1" }
-setuptools = "^65.5.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.2"
