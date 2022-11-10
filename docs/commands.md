@@ -25,18 +25,20 @@ pls --help
 │ del          Delete a Task                                                   │
 │ delete       Delete a Task                                    (deprecated)   │
 │ done         Mark a task as done ✓                                           │
-│ edit         Edit a Task                                                     │
+│ edit         Edit a task by id ✏️  (Add task name inside quotes)              │
 │ move         Change task order 🔀                                            │
 │ showtasks    Show all Tasks 📖                                (deprecated)   │
 │ tasks        Show all Tasks 📖                                               │
 │ undone       Mark a task as undone ○                                         │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 ╭─ Utils and Configs ──────────────────────────────────────────────────────────╮
-│ callme        Change name 📛 (without resetting data)                        │
-│ config        Launch config directory 📂                                     │
-│ docs          Launch docs Website 🌐                                         │
-│ setup         Reset all data and run setup 🔧                                │
-│ version       Show version 🔖                                                │
+│ callme         Change name 📛 (without resetting data)                       │
+│ config         Launch config directory 📂                                    │
+│ docs           Launch docs Website 🌐                                        │
+│ quotes         Show quotes 🏷                                                │
+│ tasks-progress Show tasks progress 🎯                                        │
+│ setup          Reset all data and run setup 🔧                               │
+│ version        Show version 🔖                                               │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 ╭─ Integration ────────────────────────────────────────────────────────────────╮
 │ count-done                    Count done tasks 📈                            │
