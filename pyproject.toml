@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pls-cli"
-version = "0.3.0"
+version = "0.3.1"
 description = ""
 authors = ["Felipe Guedes <contatofelipeguedes@gmail.com>"]
 packages = [{ include = "pls_cli" }]
