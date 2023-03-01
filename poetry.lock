@@ -653,14 +653,14 @@ files = [
 
 [[package]]
 name = "mkdocs-meta-descriptions-plugin"
-version = "2.1.0"
+version = "2.2.0"
 description = "Generate meta descriptions from the first paragraphs in your MkDocs pages"
 category = "dev"
 optional = false
 python-versions = ">=3"
 files = [
-    {file = "mkdocs-meta-descriptions-plugin-2.1.0.tar.gz", hash = "sha256:c916629aa310f62ca4020149dead12cfbac0bbf8d572b287395224f0c329e429"},
-    {file = "mkdocs_meta_descriptions_plugin-2.1.0-py3-none-any.whl", hash = "sha256:fdc9c61bcf134a8cd947e7d091da48d3526a3d4b133fe7ad9aba53d656f24c22"},
+    {file = "mkdocs-meta-descriptions-plugin-2.2.0.tar.gz", hash = "sha256:f682c5b6e4ae8ecba6e757fa49aa276cfb580918f9ce71b8991879376ab81e62"},
+    {file = "mkdocs_meta_descriptions_plugin-2.2.0-py3-none-any.whl", hash = "sha256:e43c3237d5e872924fd7b71f3684022ead562e1e400d3f53f1f78b850bea2eab"},
 ]
 
 [package.dependencies]
@@ -1338,6 +1338,8 @@ files = [
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:045e0626baf1c52e5527bd5db361bc83180faaba2ff586e763d3d5982a876a9e"},
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-macosx_12_6_arm64.whl", hash = "sha256:721bc4ba4525f53f6a611ec0967bdcee61b31df5a56801281027a3a6d1c2daf5"},
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl", hash = "sha256:41d0f1fa4c6830176eef5b276af04c89320ea616655d01327d5ce65e50575c94"},
+    {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-win32.whl", hash = "sha256:f6d3d39611ac2e4f62c3128a9eed45f19a6608670c5a2f4f07f24e8de3441d38"},
+    {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-win_amd64.whl", hash = "sha256:da538167284de58a52109a9b89b8f6a53ff8437dd6dc26d33b57bf6699153122"},
     {file = "ruamel.yaml.clib-0.2.7-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:4b3a93bb9bc662fc1f99c5c3ea8e623d8b23ad22f861eb6fce9377ac07ad6072"},
     {file = "ruamel.yaml.clib-0.2.7-cp36-cp36m-macosx_12_0_arm64.whl", hash = "sha256:a234a20ae07e8469da311e182e70ef6b199d0fbeb6c6cc2901204dd87fb867e8"},
     {file = "ruamel.yaml.clib-0.2.7-cp36-cp36m-manylinux2014_aarch64.whl", hash = "sha256:15910ef4f3e537eea7fe45f8a5d19997479940d9196f357152a09031c5be59f3"},
@@ -1738,4 +1740,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "5e8acb057b44c32eb0c19a5b2ae2e5f17d70001573df9a5984bedb261bae68dd"
+content-hash = "bc75d36996a80c0604051eff3057437b6e49bf92cc96d99b7009e1fbe62c4b18"
