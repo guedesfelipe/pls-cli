@@ -35,3 +35,6 @@ export PLS_BACKGROUND_BAR_STYLE="bar.back"
 export PLS_COMPLETE_BAR_STYLE="bar.complete"
 export PLS_FINISHED_BAR_STYLE="bar.finished"
 ```
+
+![image](https://user-images.githubusercontent.com/25853920/222288036-c7daa6e4-f9c4-4dff-be05-d6f29923efe5.png)
+
