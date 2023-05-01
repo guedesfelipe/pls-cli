@@ -1338,6 +1338,8 @@ files = [
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:045e0626baf1c52e5527bd5db361bc83180faaba2ff586e763d3d5982a876a9e"},
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-macosx_12_6_arm64.whl", hash = "sha256:721bc4ba4525f53f6a611ec0967bdcee61b31df5a56801281027a3a6d1c2daf5"},
     {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl", hash = "sha256:41d0f1fa4c6830176eef5b276af04c89320ea616655d01327d5ce65e50575c94"},
+    {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-win32.whl", hash = "sha256:f6d3d39611ac2e4f62c3128a9eed45f19a6608670c5a2f4f07f24e8de3441d38"},
+    {file = "ruamel.yaml.clib-0.2.7-cp311-cp311-win_amd64.whl", hash = "sha256:da538167284de58a52109a9b89b8f6a53ff8437dd6dc26d33b57bf6699153122"},
     {file = "ruamel.yaml.clib-0.2.7-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:4b3a93bb9bc662fc1f99c5c3ea8e623d8b23ad22f861eb6fce9377ac07ad6072"},
     {file = "ruamel.yaml.clib-0.2.7-cp36-cp36m-macosx_12_0_arm64.whl", hash = "sha256:a234a20ae07e8469da311e182e70ef6b199d0fbeb6c6cc2901204dd87fb867e8"},
     {file = "ruamel.yaml.clib-0.2.7-cp36-cp36m-manylinux2014_aarch64.whl", hash = "sha256:15910ef4f3e537eea7fe45f8a5d19997479940d9196f357152a09031c5be59f3"},
@@ -1552,31 +1554,16 @@ doc = ["cairosvg (>=2.5.2,<3.0.0)", "mdx-include (>=1.4.1,<2.0.0)", "mkdocs (>=1
 test = ["black (>=22.3.0,<23.0.0)", "coverage (>=6.2,<7.0)", "isort (>=5.0.6,<6.0.0)", "mypy (==0.910)", "pytest (>=4.4.0,<8.0.0)", "pytest-cov (>=2.10.0,<5.0.0)", "pytest-sugar (>=0.9.4,<0.10.0)", "pytest-xdist (>=1.32.0,<4.0.0)", "rich (>=10.11.0,<13.0.0)", "shellingham (>=1.3.0,<2.0.0)"]
 
 [[package]]
-name = "types-docutils"
-version = "0.19.1.2"
-description = "Typing stubs for docutils"
-category = "dev"
-optional = false
-python-versions = "*"
-files = [
-    {file = "types-docutils-0.19.1.2.tar.gz", hash = "sha256:ca3d2135484adb52dd042bbddbd6eddcbbda8c608ba3f5e5f908bd548ffcb399"},
-    {file = "types_docutils-0.19.1.2-py3-none-any.whl", hash = "sha256:7be44dac1b160901308ac43762d5e89175105ed682092a3a1f08911d2573a470"},
-]
-
-[[package]]
 name = "types-setuptools"
-version = "65.7.0.3"
+version = "67.7.0.0"
 description = "Typing stubs for setuptools"
 category = "dev"
 optional = false
 python-versions = "*"
 files = [
-    {file = "types-setuptools-65.7.0.3.tar.gz", hash = "sha256:c00f2dd1e6dcbb893faea4a57dbae80bb96d826b865d9ade8ae250a830cba10c"},
-    {file = "types_setuptools-65.7.0.3-py3-none-any.whl", hash = "sha256:b823969ea92a6d41d35933881d4c732248df834062e0d6f044c3eb36c446254e"},
+    {file = "types-setuptools-67.7.0.0.tar.gz", hash = "sha256:f59b03c786510176c7601578d84d5e6c58e985de331f08036b2fe008408a63c1"},
+    {file = "types_setuptools-67.7.0.0-py3-none-any.whl", hash = "sha256:02ee794d41c282ecfc99e09d8115ca4c3c4395a9747d1a35fa4a6f243d7585e6"},
 ]
-
-[package.dependencies]
-types-docutils = "*"
 
 [[package]]
 name = "typing-extensions"
@@ -1738,4 +1725,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "5e8acb057b44c32eb0c19a5b2ae2e5f17d70001573df9a5984bedb261bae68dd"
+content-hash = "3aae59ba795b7f0dc6df27a2a1b04dbde7241348f770d3e0f56b84f6a2dd649c"
