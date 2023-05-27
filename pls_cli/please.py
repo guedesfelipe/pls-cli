@@ -562,18 +562,26 @@ def docs():
 
 @app.command(rich_help_panel='Utils and Configs')
 def config(
-    path: bool = typer.Option(False, "--path", "-p", help="Show config file path")
+    path: bool = typer.Option(
+        False, '--path', '-p', help='Show config file path'
+    )
 ):
     """Launch config directory :open_file_folder:"""
     config_path = Settings().get_config_path()
     full_settings_path = Settings().get_full_settings_path()
 
     if not path:
-        center_print(Rule(f'・[white]Opening config directory ({config_path})[/]・',
-                           style='#d77dd8'))
+        center_print(
+            Rule(
+                f'・[white]Opening config directory ({config_path})[/]・',
+                style='#d77dd8',
+            )
+        )
         typer.launch(full_settings_path, locate=True)
     else:
-        console.print(f":open_file_folder: Settings file path: {full_settings_path}")
+        console.print(
+            f':open_file_folder: Settings file path: {full_settings_path}'
+        )
 
 
 @app.command()
