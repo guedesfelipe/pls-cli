@@ -20,10 +20,12 @@ jobs:
           python-version: 3.9
 
       - name: Install Poetry 📦️
-        uses: snok/install-poetry@v1.3.2
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
+        uses: abatilo/actions-poetry@v2
+
+      - name: Config poetry ⚙️
+        run : |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
 
       - name: Load cached venv 🗃
         id: cached-poetry-dependencies
