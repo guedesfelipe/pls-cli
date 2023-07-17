@@ -13,7 +13,7 @@ keywords = ["pls", "please", "todo", "cli"]
 [tool.poetry.dependencies]
 python = "^3.7"
 rich = "^12.4.4"
-typer = { extras = ["all"], version = ">=0.6.1,<0.8.0" }
+typer = {extras = ["all"], version = "^0.9.0"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.2"
