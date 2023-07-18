@@ -77,7 +77,7 @@ jobs:
 
       - name: Install Dependencies 📌
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction
+        run: poetry install --no-interaction --only main,test
 
       - name: Run Tests ✅
         run: poetry run pytest -v -l --full-trace --cache-clear tests/
