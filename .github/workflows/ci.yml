@@ -102,7 +102,7 @@ jobs:
           poetry config virtualenvs.in-project true --local
 
       - name: Install Dependencies 📌
-        run: poetry install --no-interaction
+        run: poetry install --no-interaction --only main,test
 
       - name: Coverage ☂️
         run: poetry run pytest --cov --cov-report=xml
