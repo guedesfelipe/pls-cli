@@ -18,7 +18,7 @@ git-config-hook:
 #* Installation
 .PHONY: install
 install:
-	@poetry install -n --no-dev
+	@poetry install -n --only main,test
 
 .PHONY: install-dev
 install-dev:
