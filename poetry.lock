@@ -711,18 +711,19 @@ files = [
 
 [[package]]
 name = "mkdocs-meta-descriptions-plugin"
-version = "2.2.0"
+version = "2.3.0"
 description = "Generate meta descriptions from the first paragraphs in your MkDocs pages"
 optional = false
 python-versions = ">=3"
 files = [
-    {file = "mkdocs-meta-descriptions-plugin-2.2.0.tar.gz", hash = "sha256:f682c5b6e4ae8ecba6e757fa49aa276cfb580918f9ce71b8991879376ab81e62"},
-    {file = "mkdocs_meta_descriptions_plugin-2.2.0-py3-none-any.whl", hash = "sha256:e43c3237d5e872924fd7b71f3684022ead562e1e400d3f53f1f78b850bea2eab"},
+    {file = "mkdocs-meta-descriptions-plugin-2.3.0.tar.gz", hash = "sha256:03bc2affc4d669f11b39e3f797abf532c80b0e640171f8ba4045f6102a13f35c"},
+    {file = "mkdocs_meta_descriptions_plugin-2.3.0-py3-none-any.whl", hash = "sha256:dfb75f18361b76b9568ab634aaeb844054a6a766e376fead18c42807b2ebde21"},
 ]
 
 [package.dependencies]
 beautifulsoup4 = ">=4.9"
 mkdocs = ">=1.1"
+packaging = "*"
 pymdown-extensions = ">=7.0"
 
 [[package]]
@@ -1768,4 +1769,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "07703d1333fdbe03d54fce7ee0ac3b909d75214cca344a886421b8c94dc3837e"
+content-hash = "89ce83462607b33db81dc601de876982eac877452139e568c31829542ad4ce6c"
