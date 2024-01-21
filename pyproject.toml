@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pls-cli"
-version = "0.3.1"
+version = "0.3.2"
 description = "Minimalist and full configurable greetings and TODO list"
 authors = ["Felipe Guedes <contatofelipeguedes@gmail.com>"]
 packages = [{ include = "pls_cli" }]
