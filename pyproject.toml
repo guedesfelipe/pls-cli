@@ -29,7 +29,7 @@ isort = "^5.10.1"
 prospector = { extras = ["with_mypy"], version = "^1.7.7" }
 safety = "^2.3.5"
 mkdocs = "^1.5.3"
-mkdocs-material = "^9.1.19"
+mkdocs-material = "^9.2.7"
 mkdocs-meta-descriptions-plugin = "^2.3.0"
 types-setuptools = "^69.0.0"
 
