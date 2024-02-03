@@ -27,10 +27,10 @@ freezegun = "^1.2.2"
 blue = "^0.9.1"
 isort = "^5.10.1"
 prospector = { extras = ["with_mypy"], version = "^1.7.7" }
-safety = "^2.3.5"
+safety = "^3.0.1"
 mkdocs = "^1.5.3"
 mkdocs-material = "^9.2.7"
-mkdocs-meta-descriptions-plugin = "^2.3.0"
+mkdocs-meta-descriptions-plugin = "^3.0.0"
 types-setuptools = "^69.0.0"
 
 [build-system]
