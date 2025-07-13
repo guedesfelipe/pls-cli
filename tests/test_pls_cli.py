@@ -1,17 +1,22 @@
 from unittest.mock import patch
 
-import pkg_resources
 from freezegun import freeze_time
 from typer.testing import CliRunner
 
 from pls_cli import __version__
 from pls_cli.please import app
 
+try:
+    from importlib.metadata import version  # Python 3.8+
+except ImportError:
+    from importlib_metadata import version  # for older backported versions
+
+
 runner = CliRunner()
 
 
 def test_version():
-    assert __version__ == pkg_resources.get_distribution('pls-cli').version
+    assert __version__ == version('pls-cli')
 
 
 def test_error_invalid_command():
