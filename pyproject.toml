@@ -11,7 +11,7 @@ documentation = "https://guedesfelipe.github.io/pls-cli/"
 keywords = ["pls", "please", "todo", "cli"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 rich = "^13.7.0"
 typer = {extras = ["all"], version = "^0.9.0"}
 
