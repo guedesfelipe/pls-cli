@@ -322,7 +322,82 @@ def delete(task_id: int) -> None:
 
 @app.command()
 def move(old_id: int, new_id: int) -> None:
-    """Change task order 🔀"""
+    """Change task order by floating 🎈 or sinking ⚓"""
+    settings = Settings().get_settings()
+    if not settings['tasks']:
+        center_print(
+            Rule(
+                'Sorry, cannot move task as the Task list is empty',
+                style=error_line_style,
+            ),
+            style=error_text_style,
+        )
+        return
+
+    if old_id == new_id:
+        center_print(
+            Rule('No Updates Made', style=warning_line_style),
+            style=warning_text_style,
+        )
+        return
+
+    try:
+        (not 0 <= old_id - 1 < len(settings['tasks'])) or (
+            not 0 <= new_id - 1 < len(settings['tasks'])
+        )
+    except IndexError:
+        center_print(
+            Rule(
+                'Are you sure you gave me the correct ID to move?',
+                style=error_line_style,
+            ),
+            style=error_text_style,
+            wrap=True,
+        )
+        return
+
+    try:
+        if len(settings['tasks']) == 2 and (
+            old_id - 1 == len(settings['tasks'])
+            or new_id - 1 == len(settings['tasks'])
+        ):
+            settings['tasks'][old_id - 1], settings['tasks'][new_id - 1] = (
+                settings['tasks'][new_id - 1],
+                settings['tasks'][old_id - 1],
+            )
+        elif old_id < new_id:
+            for x in range(new_id - 1, old_id - 1, -1):
+                settings['tasks'][old_id - 1], settings['tasks'][x] = (
+                    settings['tasks'][x],
+                    settings['tasks'][old_id - 1],
+                )
+        else:
+            for x in range(new_id - 1, old_id):
+                settings['tasks'][old_id - 1], settings['tasks'][x] = (
+                    settings['tasks'][x],
+                    settings['tasks'][old_id - 1],
+            )
+
+
+        Settings().write_settings(settings)
+        center_print(
+            Rule('Updated Task List', style=update_line_style),
+            style=update_text_style,
+        )
+        print_tasks(settings['tasks'])
+    except Exception:
+        center_print(
+            Rule(
+                "Please check the entered ID's values", style=error_line_style
+            ),
+            style=error_text_style,
+        )
+        print_tasks()
+
+
+@app.command()
+def swap(old_id: int, new_id: int) -> None:
+    """Swap two tasks' orders 🔀"""
     settings = Settings().get_settings()
     if not settings['tasks']:
         center_print(
