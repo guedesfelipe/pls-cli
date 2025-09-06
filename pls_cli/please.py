@@ -402,7 +402,7 @@ def swap(old_id: int, new_id: int) -> None:
     if not settings['tasks']:
         center_print(
             Rule(
-                'Sorry, cannot move tasks as the Task list is empty',
+                'Sorry, cannot swap tasks as the Task list is empty',
                 style=error_line_style,
             ),
             style=error_text_style,
@@ -421,7 +421,7 @@ def swap(old_id: int, new_id: int) -> None:
     ):
         center_print(
             Rule(
-                'Are you sure you gave me the correct ID to delete?',
+                'Are you sure you gave me the correct ID to swap?',
                 style=error_line_style,
             ),
             style=error_text_style,
