@@ -322,7 +322,7 @@ def delete(task_id: int) -> None:
 
 @app.command()
 def move(old_id: int, new_id: int) -> None:
-    """Change task order by floating 🎈 or sinking ⚓"""
+    """Change task position by floating 🎈 or sinking ⚓"""
     settings = Settings().get_settings()
     if not settings['tasks']:
         center_print(
@@ -397,7 +397,7 @@ def move(old_id: int, new_id: int) -> None:
 
 @app.command()
 def swap(old_id: int, new_id: int) -> None:
-    """Swap two tasks' orders 🔀"""
+    """Swap the positions of two tasks 🔀"""
     settings = Settings().get_settings()
     if not settings['tasks']:
         center_print(
