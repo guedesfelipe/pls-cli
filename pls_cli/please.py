@@ -376,8 +376,7 @@ def move(old_id: int, new_id: int) -> None:
                 settings['tasks'][old_id - 1], settings['tasks'][x] = (
                     settings['tasks'][x],
                     settings['tasks'][old_id - 1],
-            )
-
+                )
 
         Settings().write_settings(settings)
         center_print(
