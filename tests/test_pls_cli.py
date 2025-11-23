@@ -219,3 +219,39 @@ def test_edit_empty_tasks(mock_write_settings, mock_get_settings):
     output = result.stdout
     assert result.exit_code == 0
     assert 'Currently, you have no tasks to edit 📝' in output
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [
+            {'name': 'Task 1', 'done': False},
+            {'name': 'Task 2', 'done': False},
+            {'name': 'Task 3', 'done': False},
+            {'name': 'Task 4', 'done': False}
+        ],
+    },
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+def test_move_task_success(mock_write_settings, mock_get_settings):
+    result = runner.invoke(app, ['move', '1', '3'])
+    output = result.stdout
+    assert result.exit_code == 0
+    assert 'Updated Task List' in output
+    single_spaces = ' '.join(output.split())
+    assert '1 Task 2 ○' in single_spaces
+    assert '2 Task 3 ○' in single_spaces
+    assert '3 Task 1 ○' in single_spaces
+    assert '4 Task 4 ○' in single_spaces
+
+    result = runner.invoke(app, ['move', '4', '2'])
+    output = result.stdout
+    assert result.exit_code == 0
+    assert 'Updated Task List' in output
+    single_spaces = ' '.join(output.split())
+    assert '1 Task 2 ○' in single_spaces
+    assert '2 Task 4 ○' in single_spaces
+    assert '3 Task 3 ○' in single_spaces
+    assert '4 Task 1 ○' in single_spaces
