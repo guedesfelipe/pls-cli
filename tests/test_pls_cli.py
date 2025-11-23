@@ -230,7 +230,7 @@ def test_edit_empty_tasks(mock_write_settings, mock_get_settings):
             {'name': 'Task 1', 'done': False},
             {'name': 'Task 2', 'done': False},
             {'name': 'Task 3', 'done': False},
-            {'name': 'Task 4', 'done': False}
+            {'name': 'Task 4', 'done': False},
         ],
     },
 )
