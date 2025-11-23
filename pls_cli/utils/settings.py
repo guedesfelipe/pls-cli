@@ -56,6 +56,9 @@ class Settings:
     def show_quotes(self) -> bool:
         return self.get_settings().get('show_quotes', True)
 
+    def get_language(self) -> str:
+        return self.get_settings().get('language', 'english')
+
     def all_tasks_done(self) -> bool:
         return all(task.get('done', '') for task in self.get_tasks())
 

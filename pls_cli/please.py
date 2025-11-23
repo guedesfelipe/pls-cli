@@ -5,6 +5,7 @@ import shutil
 from typing import Union
 
 import typer
+from enum import Enum
 from rich import box
 from rich.align import Align
 from rich.console import Console, RenderableType
@@ -129,6 +130,45 @@ def quotes(show: bool = True) -> None:
         ),
         style=insert_or_delete_text_style,
     )
+
+
+class language(str, Enum):
+    english = "english"
+    spanish = "spanish"
+
+
+@app.command("language", rich_help_panel="Utils and Configs")
+def language(
+    lang: language = typer.Option(language.english, case_sensitive=False)
+) -> None:
+    """Choose language 🛩️"""
+    settings = Settings().get_settings()
+    if settings["language"] == lang:
+        center_print(
+            Rule(
+                f"Current language is: {lang}",
+                style=insert_or_delete_line_style,
+            ),
+            style=insert_or_delete_text_style,
+        )
+    else:
+        settings["language"] = lang
+        Settings().write_settings(settings)
+        # Here function Dowload quotes
+        center_print(
+            Rule(
+                "Thanks for letting me know that!",
+                style=insert_or_delete_line_style,
+            ),
+            style=insert_or_delete_text_style,
+        )
+        center_print(
+            Rule(
+                f"Current language is: {lang}",
+                style=insert_or_delete_line_style,
+            ),
+            style=insert_or_delete_text_style,
+        )
 
 
 @app.command('tasks', short_help='Show all Tasks :open_book:')
@@ -556,6 +596,18 @@ def setup() -> None:
     )
     console.print(code_markdown)
 
+    code_markdown = Markdown(
+        """
+            pls language --lang <language>
+        """
+    )
+
+    center_print(
+        'If you want to change the language of quotes, please use:',
+        style='red',
+    )
+    console.print(code_markdown)
+
     center_print(
         'To apply the changes restart the terminal or use this command:',
         style='red',
@@ -577,6 +629,8 @@ def setup() -> None:
         settings['show_quotes'] = False
     else:
         settings['show_quotes'] = True
+
+    settings['language'] = 'english'
 
     settings['tasks'] = []
     Settings().write_settings(settings)
