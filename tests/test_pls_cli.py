@@ -593,12 +593,11 @@ def test_docs_command(mock_launch):
     )
 
 
-@patch('typer.launch')
-def test_config_command(mock_launch):
+def test_config_command():
     result = runner.invoke(app, ['config'])
     assert result.exit_code == 0
-    assert 'Opening config directory' in result.stdout
-    assert mock_launch.called
+    assert 'Config directory' in result.stdout
+    assert 'Path:' in result.stdout
 
 
 @patch(
