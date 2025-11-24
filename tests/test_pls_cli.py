@@ -588,7 +588,9 @@ def test_docs_command(mock_launch):
     assert 'Opening' in result.stdout
     assert 'PLS-CLI' in result.stdout
     assert 'docs' in result.stdout
-    mock_launch.assert_called_once_with('https://guedesfelipe.github.io/pls-cli/')
+    mock_launch.assert_called_once_with(
+        'https://guedesfelipe.github.io/pls-cli/'
+    )
 
 
 @patch('typer.launch')
