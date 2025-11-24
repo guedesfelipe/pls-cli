@@ -1,6 +1,6 @@
 [project]
 name = "pls-cli"
-version = "0.3.4"
+version = "0.4.0"
 description = "Minimalist and full configurable greetings and TODO list"
 authors = [
     {name = "Felipe Guedes", email = "contatofelipeguedes@gmail.com"}
