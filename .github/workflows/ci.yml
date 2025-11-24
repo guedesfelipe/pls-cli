@@ -17,24 +17,11 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Install Poetry 📦️
-        uses: abatilo/actions-poetry@v2
-
-      - name: Config poetry ⚙️
-        run : |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-
-      - name: Load cached venv 🗃
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Install uv 📦️
+        uses: astral-sh/setup-uv@v5
 
       - name: Install Dependencies 📌
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction
+        run: uv sync --all-groups
 
       - name: Linting 🔎
         run: make lint
@@ -60,27 +47,14 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Poetry 📦️
-        uses: abatilo/actions-poetry@v2
-
-      - name: Config poetry ⚙️
-        run : |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-
-      - name: Load cached venv 🗃
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Install uv 📦️
+        uses: astral-sh/setup-uv@v5
 
       - name: Install Dependencies 📌
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --only main,test
+        run: uv sync --only-group test
 
       - name: Run Tests ✅
-        run: poetry run pytest -v -l --full-trace --cache-clear tests/
+        run: uv run pytest -v -l --full-trace --cache-clear tests/
   codecov:
     needs: test
     runs-on: ubuntu-latest
@@ -93,19 +67,14 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Install Poetry 📦️
-        uses: abatilo/actions-poetry@v2
-
-      - name: Config poetry ⚙️
-        run : |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
+      - name: Install uv 📦️
+        uses: astral-sh/setup-uv@v5
 
       - name: Install Dependencies 📌
-        run: poetry install --no-interaction --only main,test
+        run: uv sync --only-group test
 
       - name: Coverage ☂️
-        run: poetry run pytest --cov --cov-report=xml
+        run: uv run pytest --cov --cov-report=xml
 
       - name: Upload Coverage 📤
         uses: codecov/codecov-action@v1
