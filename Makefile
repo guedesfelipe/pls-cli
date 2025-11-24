@@ -43,7 +43,7 @@ test:
 #* Security
 .PHONY: sec
 sec:
-	@uv run safety check --full-report
+	@uv run pip-audit --desc on --progress-spinner off
 
 #* Cleaning
 .PHONY: pycache-remove
