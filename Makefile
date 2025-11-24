@@ -1,13 +1,10 @@
 #* Variables
 PYTHON := python
 
-#* Poetry
-.PHONY: poetry-download
-	@curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | $(PYTHON) -
-
-.PHONY: poetry-remove
-poetry-remove:
-	@curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | $(PYTHON) - --uninstall
+#* uv
+.PHONY: uv-download
+uv-download:
+	@curl -LsSf https://astral.sh/uv/install.sh | sh
 
 #* Config git hook
 .PHONY: git-config-hook
@@ -18,35 +15,35 @@ git-config-hook:
 #* Installation
 .PHONY: install
 install:
-	@poetry install -n --only main,test
+	@uv sync --only-group test
 
 .PHONY: install-dev
 install-dev:
-	@poetry install -n
+	@uv sync --all-groups
 	@make git-config-hook
 
-#* Fromatters
+#* Formatters
 .PHONY: format
 format:
-	@poetry run blue .
-	@poetry run isort . -m3 --up --tc
+	@uv run ruff format .
+	@uv run ruff check --fix .
 
 #* Linting
 .PHONY: lint
 lint:
-	@poetry run blue . --check
-	@poetry run isort . -m3 --up --tc --check
-	@poetry run prospector --with-tool pycodestyle --doc-warning --no-autodetect
+	@uv run ruff format --check .
+	@uv run ruff check .
+	@uv run mypy pls_cli tests
 
 #* Test
 .PHONY: test
 test:
-	@poetry run pytest -v
+	@uv run pytest -v
 
 #* Security
 .PHONY: sec
 sec:
-	@poetry run safety check --full-report
+	@uv run pip-audit --desc on --progress-spinner off
 
 #* Cleaning
 .PHONY: pycache-remove
@@ -79,14 +76,15 @@ cleanup: pycache-remove dsstore-remove mypycache-remove ipynbcheckpoints-remove 
 #* Coverage
 .PHONY: coverage
 coverage:
-	@poetry run pytest --cov --cov-fail-under 95 -v
+	@uv run pytest --cov --cov-fail-under 95 -v
 
 #* Coverage HTML
 .PHONY: coverage-html
 coverage-html:
-	@poetry run pytest --cov --cov-report html -v
+	@uv run pytest --cov --cov-report html -v
 
 #* Publish
 .PHONY: publish
 publish:
-	@poetry publish --build
+	@uv build
+	@uv publish

@@ -1,40 +1,43 @@
 name: Continous Integration
+
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  UV_SYSTEM_PYTHON: 1
+
+permissions:
+  contents: read
+
 jobs:
   linting:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Setup Python 🐍
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
-          python-version: 3.9
+          python-version: '3.12'
 
-      - name: Install Poetry 📦️
-        uses: abatilo/actions-poetry@v2
-
-      - name: Config poetry ⚙️
-        run : |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-
-      - name: Load cached venv 🗃
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
+      - name: Install uv 📦️
+        uses: astral-sh/setup-uv@v7
         with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
 
       - name: Install Dependencies 📌
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction
+        run: uv sync --all-groups
 
       - name: Linting 🔎
         run: make lint
@@ -44,7 +47,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
+        python-version: [ "3.9", "3.10", "3.11", "3.12", "3.13", "3.14" ]
         os: ["ubuntu-latest", "macos-latest", "windows-latest"]
     defaults:
       run:
@@ -52,64 +55,58 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Setup Python ${{ matrix.python-version }} 🐍
-        id: setup-python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install Poetry 📦️
-        uses: abatilo/actions-poetry@v2
-
-      - name: Config poetry ⚙️
-        run : |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-
-      - name: Load cached venv 🗃
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
+      - name: Install uv 📦️
+        uses: astral-sh/setup-uv@v7
         with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
 
       - name: Install Dependencies 📌
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --only main,test
+        run: uv sync --only-group test
 
       - name: Run Tests ✅
-        run: poetry run pytest -v -l --full-trace --cache-clear tests/
+        run: uv run pytest -v -l --full-trace --cache-clear tests/
+
   codecov:
     needs: test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Setup Python 🐍
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
-          python-version: 3.9
+          python-version: '3.12'
 
-      - name: Install Poetry 📦️
-        uses: abatilo/actions-poetry@v2
-
-      - name: Config poetry ⚙️
-        run : |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
+      - name: Install uv 📦️
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
 
       - name: Install Dependencies 📌
-        run: poetry install --no-interaction --only main,test
+        run: uv sync --only-group test
 
       - name: Coverage ☂️
-        run: poetry run pytest --cov --cov-report=xml
+        run: uv run pytest --cov --cov-report=xml
 
       - name: Upload Coverage 📤
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
+          files: ./coverage.xml
           fail_ci_if_error: true

@@ -175,7 +175,10 @@ def print_tasks(force_print: bool = False) -> None:
 
 @app.command()
 def add(task: str) -> None:
-    """[bold green]Add[/bold green] a Task :sparkles: [light_slate_grey italic](Add task name inside quotes)[/]"""
+    """
+    [bold green]Add[/bold green] a Task :sparkles:
+    [light_slate_grey italic](Add task name inside quotes)[/]
+    """
     new_task = {'name': task, 'done': False}
     settings = Settings().get_settings()
     settings['tasks'].append(new_task)
@@ -465,9 +468,7 @@ def clear() -> None:
 @app.command()
 def clean() -> None:
     """Clean up tasks marked as done :broom:"""
-    typer.confirm(
-        'Are you sure you want to delete all done tasks?', abort=True
-    )
+    typer.confirm('Are you sure you want to delete all done tasks?', abort=True)
     settings = Settings().get_settings()
     settings['tasks'] = Settings().get_all_tasks_undone()
     Settings().write_settings(settings)
@@ -491,7 +492,10 @@ def count_undone() -> None:
 
 @app.command(rich_help_panel='Utils and Configs')
 def callme(name: str) -> None:
-    """Change name :name_badge: [light_slate_grey italic](without resetting data)[/]"""
+    """
+    Change name :name_badge: [light_slate_grey italic]
+    (without resetting data)[/]
+    """
     settings = Settings().get_settings()
     settings['user_name'] = name
     Settings().write_settings(settings)
@@ -539,7 +543,10 @@ def setup() -> None:
         """
     )
     center_print(
-        'If you need to disable or enable the task progress bar later, please use:',
+        (
+            'If you need to disable or enable the task progress bar later, '
+            'please use:'
+        ),
         style='red',
     )
     console.print(code_markdown)
@@ -583,7 +590,10 @@ def setup() -> None:
 
 @app.callback(
     invoke_without_command=True,
-    epilog='Made with [red]:heart:[/red] by [link=https://github.com/guedesfelipe/pls-cli]Felipe Guedes[/link]',
+    epilog=(
+        'Made with [red]:heart:[/red] by '
+        '[link=https://github.com/guedesfelipe/pls-cli]Felipe Guedes[/link]'
+    ),
 )
 def show(ctx: typer.Context) -> None:
     """
@@ -596,7 +606,11 @@ def show(ctx: typer.Context) -> None:
             if Settings().exists_settings():
                 date_now = datetime.datetime.now()
                 user_name = Settings().get_name()
-                header_greetings = f'[{header_greetings_style}] Hello {user_name}! It\'s {date_now.strftime("%d %b | %I:%M %p")}[/]'
+                time_str = date_now.strftime('%d %b | %I:%M %p')
+                header_greetings = (
+                    f'[{header_greetings_style}] Hello {user_name}! '
+                    f"It's {time_str}[/]"
+                )
                 center_print(
                     Rule(header_greetings, style=header_greetings_style)
                 )
@@ -643,7 +657,10 @@ def config():
 
 @app.command()
 def edit(task_id: int, task: str):
-    """[bold yellow]Edit[/bold yellow] a task by id ✏️ [light_slate_grey italic] (Add task name inside quotes)[/]"""
+    """
+    [bold yellow]Edit[/bold yellow] a task by id ✏️ [light_slate_grey italic]
+    (Add task name inside quotes)[/]
+    """
     settings = Settings().get_settings()
     tasks = settings['tasks']
 

@@ -1,40 +1,43 @@
 name: Security
+
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  UV_SYSTEM_PYTHON: 1
+
+permissions:
+  contents: read
+
 jobs:
   check-security:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Setup Python 🐍
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
-          python-version: 3.9
+          python-version: '3.12'
 
-      - name: Install Poetry 📦️
-        uses: abatilo/actions-poetry@v2
-
-      - name: Config poetry ⚙️
-        run : |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-
-      - name: Load cached venv 🗃
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
+      - name: Install uv 📦️
+        uses: astral-sh/setup-uv@v7
         with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
 
       - name: Install Dependencies 📌
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction
+        run: uv sync --group dev
 
       - name: Check Security 🚓
-        run: make sec 
+        run: make sec

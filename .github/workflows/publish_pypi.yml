@@ -4,45 +4,37 @@ on:
   release:
     types: [ published ]
 
+env:
+  UV_SYSTEM_PYTHON: 1
+
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   build-n-publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Setup Python 🐍
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
-          python-version: 3.9
+          python-version: '3.12'
 
-      - name: Install Poetry 📦️
-        uses: abatilo/actions-poetry@v2
-
-      - name: Config poetry ⚙️
-        run : |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-
-      - name: Load cached venv 🗃
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
+      - name: Install uv 📦️
+        uses: astral-sh/setup-uv@v7
         with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-
-      - name: Install Dependencies 📌
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
 
       - name: Build 🏗
-        run: poetry build
+        run: uv build
 
-      - name: Publish to Pypi 📤
-        uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
+      - name: Publish to PyPI 📤
+        uses: pypa/gh-action-pypi-publish@v1.13.0
         with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }} 
+          password: ${{ secrets.PYPI_API_TOKEN }}

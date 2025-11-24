@@ -1,41 +1,92 @@
-[tool.poetry]
+[project]
 name = "pls-cli"
 version = "0.3.4"
 description = "Minimalist and full configurable greetings and TODO list"
-authors = ["Felipe Guedes <contatofelipeguedes@gmail.com>"]
-packages = [{ include = "pls_cli" }]
+authors = [
+    {name = "Felipe Guedes", email = "contatofelipeguedes@gmail.com"}
+]
 readme = "README.md"
-repository = "https://github.com/guedesfelipe/pls-cli"
-homepage = "https://guedesfelipe.github.io/pls-cli/"
-documentation = "https://guedesfelipe.github.io/pls-cli/"
+requires-python = ">=3.9"
 keywords = ["pls", "please", "todo", "cli"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "rich>=13.7.0",
+    "typer>=0.9.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.7"
-rich = "^13.7.0"
-typer = {extras = ["all"], version = "^0.9.0"}
+[dependency-groups]
+test = [
+    "pytest>=7.2",
+    "pytest-cov>=4.0.0",
+    "freezegun>=1.2.2",
+]
+dev = [
+    "ruff>=0.8.0",
+    "mypy>=1.0.0",
+    "pip-audit>=2.8.0",
+    "mkdocs>=1.5.3",
+    "mkdocs-material>=9.2.7",
+    "mkdocs-meta-descriptions-plugin>=3.0.0",
+    "types-setuptools>=69.0.0",
+]
 
-[tool.poetry.group.test]
-optional = true
+[project.urls]
+Homepage = "https://guedesfelipe.github.io/pls-cli/"
+Documentation = "https://guedesfelipe.github.io/pls-cli/"
+Repository = "https://github.com/guedesfelipe/pls-cli"
 
-[tool.poetry.group.test.dependencies]
-pytest = "^7.2"
-pytest-cov = "^4.0.0"
-freezegun = "^1.2.2"
-
-[tool.poetry.dev-dependencies]
-blue = "^0.9.1"
-isort = "^5.10.1"
-prospector = { extras = ["with_mypy"], version = "^1.7.7" }
-safety = "^3.0.1"
-mkdocs = "^1.5.3"
-mkdocs-material = "^9.2.7"
-mkdocs-meta-descriptions-plugin = "^3.0.0"
-types-setuptools = "^69.0.0"
+[project.scripts]
+pls = "pls_cli.please:app"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry.scripts]
-pls = "pls_cli.please:app"
+[tool.hatch.build.targets.wheel]
+packages = ["pls_cli"]
+
+[tool.ruff]
+line-length = 80
+target-version = "py38"
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "N",      # pep8-naming
+    "UP",     # pyupgrade
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "SIM",    # flake8-simplify
+    "TCH",    # flake8-type-checking
+]
+ignore = []
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 80
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+force-single-line = false
+force-wrap-aliases = true
+combine-as-imports = true
+split-on-trailing-comma = true
+
+[tool.mypy]
+ignore_missing_imports = true
+follow_imports = "skip"
