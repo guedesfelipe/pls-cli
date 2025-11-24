@@ -9,7 +9,7 @@ from pls_cli.please import app
 try:
     from importlib.metadata import version  # Python 3.8+
 except ImportError:
-    from importlib_metadata import version  # for older backported versions
+    from importlib_metadata import version  # type: ignore[no-redef]
 
 
 runner = CliRunner()
@@ -22,7 +22,7 @@ def test_version():
 def test_error_invalid_command():
     result = runner.invoke(app, ['test'])
     assert result.exit_code == 2
-    assert "No such command 'test'" in result.stdout
+    assert "No such command 'test'" in result.output
 
 
 def test_help():
@@ -50,9 +50,9 @@ def test_first_usage(mock_write_settings, mock_exists_settings):
         in result.stdout
     )
     assert (
-        'If you need to disable or enable the task progress bar later, please use:'
-        in result.stdout
-    )
+        'If you need to disable or enable the task progress bar later, '
+        'please use:'
+    ) in result.stdout
     assert (
         'If you need to disable or enable quotes later, please use:'
         in result.stdout
