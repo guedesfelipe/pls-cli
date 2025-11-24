@@ -32,9 +32,7 @@ class Settings:
 
     def get_settings(self) -> dict:
         if os.path.exists(self.full_settings_path):
-            with open(
-                self.full_settings_path, encoding='utf-8'
-            ) as config_file:
+            with open(self.full_settings_path, encoding='utf-8') as config_file:
                 return json.load(config_file)
         return self.minimal_default_config
 
