@@ -29,11 +29,36 @@
 
 # 🛠 Installation
 
+## Recommended: Using pipx (isolated environment)
+
+[pipx](https://pipx.pypa.io/) installs the CLI in an isolated environment, avoiding conflicts with other packages:
+
+```sh
+# Install pipx if you haven't already
+python3 -m pip install --user pipx
+python3 -m pipx ensurepath
+
+# Install pls-cli
+pipx install pls-cli
+```
+
+## Alternative: Using pip
+
 ```sh
 pip install pls-cli
 ```
 
+> **Note**: Installing with pip may cause dependency conflicts with other packages. We recommend using pipx for CLI tools.
+
 # ⬆️ Upgrade version
+
+## With pipx (recommended)
+
+```sh
+pipx upgrade pls-cli
+```
+
+## With pip
 
 ```sh
 pip install pls-cli --upgrade
