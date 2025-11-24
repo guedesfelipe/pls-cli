@@ -345,7 +345,7 @@ def move(old_id: int, new_id: int) -> None:
         return
 
     try:
-        (not 0 <= old_id - 1 < len(settings['tasks'])) or (
+        _ = (not 0 <= old_id - 1 < len(settings['tasks'])) or (
             not 0 <= new_id - 1 < len(settings['tasks'])
         )
     except IndexError:
