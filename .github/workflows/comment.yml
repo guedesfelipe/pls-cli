@@ -17,4 +17,4 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body: |
             Did I solve your problem?
-            Why not buy the devs a [coffee](https://ko-fi.com/guedesfelipe) to say thanks?
+            Consider [sponsoring this project](https://github.com/sponsors/guedesfelipe) to help keep the terminal productive and beautiful! 🚀

@@ -53,11 +53,11 @@ You can create a new issue in the GitHub repository, for example to:
 
 If you create some theme, share with us <a href="https://github.com/guedesfelipe/pls-cli/discussions/1#discussion-4174647" target="_blank">here</a> :heart:.
 
-##✌️ Sponsor the author
+## ✌️ Sponsor the author
 
-You can also financially support the author (me) through <a href="https://ko-fi.com/guedesfelipe" target="_blank">Ko-fi</a>.
+You can also financially support the author (me) through <a href="https://github.com/sponsors/guedesfelipe" target="_blank">GitHub Sponsors</a>.
 
-There you could buy me a coffee ☕️ to say thanks. 😄
+There you could help keep this project alive and thriving. 😄
 
 ## 🤝 Sponsor the tools that power **PLS-CLI**
 As you have seen in the documentation, PLS-CLI stands on the shoulders of giants, **Typer** and **Rich**.

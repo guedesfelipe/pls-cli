@@ -128,7 +128,7 @@ To run **`pls-cli`** everytime you open your shell's:
 ---
 
 <p align="center">
-  <a href="https://ko-fi.com/guedesfelipe" target="_blank">
-    <img src="https://user-images.githubusercontent.com/25853920/175832199-6c75d866-31b8-4209-bd1a-db116a6dd032.png" width=300 />
+  <a href="https://github.com/sponsors/guedesfelipe" target="_blank">
+    <img src="https://img.shields.io/badge/Sponsor-GitHub-ea4aaa?style=for-the-badge&logo=github" />
   </a>
 </p>
