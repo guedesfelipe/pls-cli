@@ -25,9 +25,10 @@ pls --help
 │ del          Delete a Task                                                   │
 │ delete       Delete a Task                                    (deprecated)   │
 │ done         Mark a task as done ✓                                           │
-│ edit         Edit a task by id ✏️  (Add task name inside quotes)              │
-│ move         Change task order 🔀                                            │
+│ edit         Edit a task by id ✏️  (Add task name inside quotes)             │
+│ move         Insert a task in a new position                                 │
 │ showtasks    Show all Tasks 📖                                (deprecated)   │
+| swap         Swap a task's position with another 🔀                          │
 │ tasks        Show all Tasks 📖                                               │
 │ undone       Mark a task as undone ○                                         │
 ╰──────────────────────────────────────────────────────────────────────────────╯
