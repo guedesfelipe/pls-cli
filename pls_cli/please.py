@@ -650,9 +650,10 @@ def docs():
 
 @app.command(rich_help_panel='Utils and Configs')
 def config():
-    """Launch config directory :open_file_folder:"""
-    center_print(Rule('・Opening config directory・', style='#d77dd8'))
-    typer.launch(Settings().get_full_settings_path(), locate=True)
+    """Show config directory path :open_file_folder:"""
+    config_path = Settings().get_full_settings_path()
+    center_print(Rule('・Config directory・', style='#d77dd8'))
+    console.print(f'\n[#61E294]Path:[/] [bold]{config_path}[/]\n')
 
 
 @app.command()
