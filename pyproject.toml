@@ -6,11 +6,10 @@ authors = [
     {name = "Felipe Guedes", email = "contatofelipeguedes@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 keywords = ["pls", "please", "todo", "cli"]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -33,7 +32,7 @@ test = [
 dev = [
     "ruff>=0.8.0",
     "mypy>=1.0.0",
-    "safety>=3.0.1",
+    "pip-audit>=2.8.0",
     "mkdocs>=1.5.3",
     "mkdocs-material>=9.2.7",
     "mkdocs-meta-descriptions-plugin>=3.0.0",
