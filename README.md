@@ -50,6 +50,30 @@ pip install pls-cli
 
 > **Note**: Installing with pip may cause dependency conflicts with other packages. We recommend using pipx for CLI tools.
 
+## 🧑‍💻 Run from source
+
+To run or develop the version of PLS-CLI in a cloned repository, install
+Python 3.9+ and [uv](https://docs.astral.sh/uv/), then run:
+
+```sh
+git clone <your-repository-url>
+cd pls-cli
+uv sync --only-group test
+uv run pls --help
+```
+
+`uv sync` creates a project-local `.venv` environment from
+`pyproject.toml` and `uv.lock`. The `.venv` directory should not be
+committed; it can be recreated from those files.
+
+### Verify changes
+
+Run the automated tests before sharing a change:
+
+```sh
+uv run pytest -q
+```
+
 # ⬆️ Upgrade version
 
 ## With pipx (recommended)
@@ -134,6 +158,25 @@ pls --help
 ```
 
 Or for more information you can see in the [documentation](https://guedesfelipe.github.io/pls-cli/commands).
+
+## Insert a task
+
+Insert a task after an existing task by using its current ID:
+
+```sh
+pls insert 2 "third task"
+```
+
+This inserts `third task` after task `2`. Tasks that were after task `2`
+automatically receive their new displayed IDs. Task names with spaces must be
+wrapped in quotes.
+
+The ID must be an existing task ID, from `1` through the current number of
+tasks. Inserting into an empty list, using `0`, or using an ID beyond the last
+task displays an error.
+
+PLS-CLI asks for confirmation before changing the list. Enter `y` to insert
+and save the task, or `N` to leave the list unchanged.
 
 
 # 🎨 Color Configuration

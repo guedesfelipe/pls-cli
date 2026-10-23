@@ -139,6 +139,114 @@ def test_add_task(
     return_value={
         'user_name': 'Test name',
         'initial_setup_done': True,
+        'tasks': [
+            {'name': 'Task 1', 'done': False},
+            {'name': 'Task 2', 'done': False},
+            {'name': 'Task 3', 'done': False},
+        ],
+    },
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+def test_insert_task_success(mock_write_settings, mock_get_settings):
+    result = runner.invoke(app, ['insert', '2', 'New task'], input='y\n')
+    output = ' '.join(result.stdout.split())
+
+    assert result.exit_code == 0
+    assert 'Insert "New task" after Task #2? [y/N]: y' in output
+    assert '1 Task 1 ○' in output
+    assert '2 Task 2 ○' in output
+    assert '3 New task ○' in output
+    assert '4 Task 3 ○' in output
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [
+            {'name': 'Task 1', 'done': False},
+            {'name': 'Task 2', 'done': False},
+        ],
+    },
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+def test_insert_task_aborted(mock_write_settings, mock_get_settings):
+    result = runner.invoke(app, ['insert', '1', 'New task'], input='N\n')
+    output = ' '.join(result.stdout.split())
+
+    assert result.exit_code == 0
+    assert 'Insert "New task" after Task #1? [y/N]: N' in output
+    assert '1 Task 1 ○' in output
+    assert '2 Task 2 ○' in output
+    assert '3 New task ○' not in output
+    mock_write_settings.assert_not_called()
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [],
+    },
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+def test_insert_task_with_empty_list(mock_write_settings, mock_get_settings):
+    result = runner.invoke(app, ['insert', '1', 'New task'])
+
+    assert result.exit_code == 0
+    assert (
+        'Sorry, cannot insert task as the Task list is empty' in result.stdout
+    )
+    mock_write_settings.assert_not_called()
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [
+            {'name': 'Task 1', 'done': False},
+            {'name': 'Task 2', 'done': False},
+        ],
+    },
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+def test_insert_task_with_invalid_after_id(
+    mock_write_settings, mock_get_settings
+):
+    for after_id in ('0', '3'):
+        result = runner.invoke(app, ['insert', after_id, 'New task'])
+
+        assert result.exit_code == 0
+        assert (
+            'Are you sure you gave me the correct ID to insert after?'
+            in result.stdout
+        )
+    mock_write_settings.assert_not_called()
+
+
+def test_insert_command_requires_arguments():
+    result = runner.invoke(app, ['insert'])
+
+    assert result.exit_code == 2
+    assert 'Missing argument' in result.output
+
+
+def test_insert_command_help():
+    result = runner.invoke(app, ['insert', '--help'])
+
+    assert result.exit_code == 0
+    assert 'Insert a task after an existing task' in result.output
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
         'tasks': [],
     },
 )
@@ -201,13 +309,13 @@ def test_edit_task_success(mock_write_settings, mock_get_settings):
 @patch('pls_cli.utils.settings.Settings.write_settings')
 def test_edit_task_aborted(mock_write_settings, mock_get_settings):
     result = runner.invoke(app, ['edit', '2', 'Task 2 edited'], input='N\n')
-    output = result.stdout
+    output = ' '.join(result.stdout.split())
     assert result.exit_code == 0
     assert 'Old Task: Task 2' in output
     assert 'Edited Task: Task 2 edited' in output
     assert 'Are you sure you want to edit Task #2? [y/N]: N' in output
-    assert '1    Task 1            ○' in output
-    assert '2    Task 2 edited     ○' in output
+    assert '1 Task 1 ○' in output
+    assert '2 Task 2 ○' in output
 
 
 @patch(

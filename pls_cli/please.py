@@ -191,6 +191,45 @@ def add(task: str) -> None:
 
 
 @app.command()
+def insert(after_id: int, task: str) -> None:
+    """Insert a task after an existing task."""
+    settings = Settings().get_settings()
+    tasks = settings['tasks']
+
+    if not tasks:
+        center_print(
+            Rule(
+                'Sorry, cannot insert task as the Task list is empty',
+                style=error_line_style,
+            ),
+            style=error_text_style,
+        )
+        return
+
+    if not 1 <= after_id <= len(tasks):
+        center_print(
+            Rule(
+                'Are you sure you gave me the correct ID to insert after?',
+                style=error_line_style,
+            ),
+            style=error_text_style,
+        )
+        return
+
+    if not typer.confirm(
+        f'Insert "{task}" after Task #{after_id}?', show_default=True
+    ):
+        console.clear()
+        print_tasks()
+        raise typer.Exit()
+
+    tasks.insert(after_id, {'name': task, 'done': False})
+    Settings().write_settings(settings)
+    console.clear()
+    print_tasks()
+
+
+@app.command()
 def done(taks_id: int) -> None:
     """Mark a task as [#bbf2b3]done ✓[/]"""
     task_id = taks_id - 1
@@ -678,7 +717,6 @@ def edit(task_id: int, task: str):
     # check if task exists
     if task_id and task_id <= len(tasks):
         old_task = tasks[task_id - 1]['name']
-        tasks[task_id - 1]['name'] = task
     else:
         center_print(
             f'\nTask #{task_id} was not found, pls choose an existing ID\n',
@@ -694,10 +732,11 @@ def edit(task_id: int, task: str):
     if not typer.confirm(
         f'Are you sure you want to edit Task #{task_id}?', show_default=True
     ):
-        typer.clear()
+        console.clear()
         print_tasks()
         raise typer.Exit()
 
+    tasks[task_id - 1]['name'] = task
     Settings().write_settings(settings)
-    typer.clear()
+    console.clear()
     print_tasks()
