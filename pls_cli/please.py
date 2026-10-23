@@ -132,7 +132,6 @@ def quotes(show: bool = True) -> None:
 
 
 @app.command('tasks', short_help='Show all Tasks :open_book:')
-@app.command(short_help='[s]Show all Tasks :open_book:[/]', deprecated=True)
 def showtasks() -> None:
     """Show all Tasks :open_book:"""
     task_table = Table(
@@ -324,7 +323,6 @@ def undone(task_id: int) -> None:
 
 
 @app.command('del', short_help='[bright_red]Delete[/] a Task')
-@app.command(short_help='[s]Delete a Task[/s]', deprecated=True)
 def delete(task_id: int) -> None:
     """[bright_red]Delete[/] a Task"""
     task_id = task_id - 1
