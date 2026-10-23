@@ -65,6 +65,30 @@
         pip install pls-cli --upgrade
         ```
 
+## 🧑‍💻 Run from source
+
+To run or develop the version of PLS-CLI in a cloned repository, install
+Python 3.9+ and [uv](https://docs.astral.sh/uv/), then run:
+
+```sh
+git clone https://github.com/guedesfelipe/pls-cli.git
+cd pls-cli
+uv sync --only-group test
+uv run pls --help
+```
+
+`uv sync` creates a project-local `.venv` environment from
+`pyproject.toml` and `uv.lock`. The `.venv` directory should not be
+committed; it can be recreated from those files.
+
+!!! tip "Verify changes"
+
+    Run the automated tests before sharing a change:
+
+    ```sh
+    uv run pytest -q
+    ```
+
 ## ⚙️ Configuration
 
 To run **`pls-cli`** everytime you open your shell's:
