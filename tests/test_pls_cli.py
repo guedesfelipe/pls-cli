@@ -667,6 +667,12 @@ def test_tasks_command():
     assert result.exit_code == 0
 
 
+def test_removed_deprecated_commands():
+    for command in ('showtasks', 'delete'):
+        result = runner.invoke(app, [command])
+        assert result.exit_code == 2
+
+
 @patch(
     'pls_cli.utils.settings.Settings.get_settings',
     return_value={'show_task_progress': True},

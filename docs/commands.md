@@ -23,12 +23,10 @@ pls --help
 │ clean        Clean up tasks marked as done 🧹                                │
 │ clear        Clear all tasks 🗑                                              │
 │ del          Delete a Task                                                   │
-│ delete       Delete a Task                                    (deprecated)   │
 │ done         Mark a task as done ✓                                           │
 │ edit         Edit a task by id ✏️  (Add task name inside quotes)             │
 │ insert       Insert a task after an existing task                            │
 │ move         Change task position by floating 🎈 or sinking ⚓              │
-│ showtasks    Show all Tasks 📖                                (deprecated)   │
 │ swap         Swap the positions of two tasks 🔀                              │
 │ tasks        Show all Tasks 📖                                               │
 │ undone       Mark a task as undone ○                                         │
