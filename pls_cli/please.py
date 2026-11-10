@@ -712,8 +712,9 @@ def edit(task_id: int, task: str):
 
     print_tasks()
 
-    # check if task exists
-    if task_id and task_id <= len(tasks):
+    # check if task exists (IDs are 1-based; reject 0/negatives, which
+    # would otherwise silently address tasks from the end of the list)
+    if 1 <= task_id <= len(tasks):
         old_task = tasks[task_id - 1]['name']
     else:
         center_print(
