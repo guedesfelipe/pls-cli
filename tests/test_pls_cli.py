@@ -815,3 +815,39 @@ def test_showtasks_command(mock_get_tasks, mock_get_settings):
     result = runner.invoke(app, ['tasks'])
     assert result.exit_code == 0
     assert 'TASK' in result.stdout
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [{'name': 'Legacy task without done flag'}],
+    },
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+def test_clean_command_task_without_done_flag(
+    mock_write_settings, mock_get_settings
+):
+    # A task entry without a 'done' key (hand-edited or legacy config)
+    # is treated as undone instead of crashing with KeyError.
+    result = runner.invoke(app, ['clean'], input='y\n')
+    assert result.exit_code == 0
+    assert 'Done Tasks Deleted' in result.stdout
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [{'name': 'Legacy task without done flag'}],
+    },
+)
+def test_count_commands_task_without_done_flag(mock_get_settings):
+    result = runner.invoke(app, ['count-done'])
+    assert result.exit_code == 0
+    assert '0' in result.stdout
+    result = runner.invoke(app, ['count-undone'])
+    assert result.exit_code == 0
+    assert '1' in result.stdout
