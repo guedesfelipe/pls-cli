@@ -802,6 +802,28 @@ def test_move_command_invalid_id(mock_get_settings):
         'initial_setup_done': True,
         'tasks': [
             {'name': 'Task 1', 'done': False},
+            {'name': 'Task 2', 'done': False},
+            {'name': 'Task 3', 'done': False},
+        ],
+    },
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+def test_move_command_zero_id_rejected(
+    mock_write_settings, mock_get_settings
+):
+    result = runner.invoke(app, ['move', '0', '1'])
+    assert result.exit_code == 0
+    assert "Please check the entered ID's values" in result.stdout
+    mock_write_settings.assert_not_called()
+
+
+@patch(
+    'pls_cli.utils.settings.Settings.get_settings',
+    return_value={
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [
+            {'name': 'Task 1', 'done': False},
             {'name': 'Task 2', 'done': True},
         ],
     },

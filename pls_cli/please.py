@@ -381,18 +381,14 @@ def move(old_id: int, new_id: int) -> None:
         )
         return
 
-    try:
-        _ = (not 0 <= old_id - 1 < len(settings['tasks'])) or (
-            not 0 <= new_id - 1 < len(settings['tasks'])
-        )
-    except IndexError:
+    if (not 0 <= old_id - 1 < len(settings['tasks'])) or (
+        not 0 <= new_id - 1 < len(settings['tasks'])
+    ):
         center_print(
             Rule(
-                'Are you sure you gave me the correct ID to move?',
-                style=error_line_style,
+                "Please check the entered ID's values", style=error_line_style
             ),
             style=error_text_style,
-            wrap=True,
         )
         return
 
