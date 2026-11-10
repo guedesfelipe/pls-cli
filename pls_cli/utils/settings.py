@@ -58,13 +58,17 @@ class Settings:
         return all(task.get('done', '') for task in self.get_tasks())
 
     def get_all_tasks_undone(self) -> List[dict]:
-        return [task for task in self.get_tasks() if not task['done']]
+        return [task for task in self.get_tasks() if not task.get('done')]
 
     def count_tasks_done(self) -> int:
         if not self.get_tasks():
             return 0
         return len(
-            [task.get('done', '') for task in self.get_tasks() if task['done']]
+            [
+                task.get('done', '')
+                for task in self.get_tasks()
+                if task.get('done')
+            ]
         )
 
     def count_tasks_undone(self) -> int:
@@ -74,6 +78,6 @@ class Settings:
             [
                 task.get('done', '')
                 for task in self.get_tasks()
-                if not task['done']
+                if not task.get('done')
             ]
         )
