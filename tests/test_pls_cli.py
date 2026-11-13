@@ -1,5 +1,6 @@
 from unittest.mock import patch
 
+import pytest
 from freezegun import freeze_time
 from typer.testing import CliRunner
 
@@ -792,7 +793,48 @@ def test_move_command_same_position(mock_get_settings):
 def test_move_command_invalid_id(mock_get_settings):
     result = runner.invoke(app, ['move', '1', '5'])
     assert result.exit_code == 0
-    assert "Please check the entered ID's values" in result.stdout
+    assert 'Are you sure you gave me the correct ID to move?' in result.stdout
+
+
+INVALID_IDS = ['0', '-1', '4']
+
+
+@pytest.mark.parametrize('bad_id', INVALID_IDS)
+@pytest.mark.parametrize(
+    'command',
+    [
+        ['done', '{id}'],
+        ['undone', '{id}'],
+        ['del', '{id}'],
+        ['edit', '{id}', 'New name'],
+        ['insert', '{id}', 'New task'],
+        ['move', '{id}', '1'],
+        ['move', '1', '{id}'],
+        ['swap', '{id}', '1'],
+        ['swap', '1', '{id}'],
+    ],
+)
+@patch('pls_cli.utils.settings.Settings.write_settings')
+@patch('pls_cli.utils.settings.Settings.get_settings')
+def test_commands_reject_out_of_range_ids(
+    mock_get_settings, mock_write_settings, command, bad_id
+):
+    tasks = [
+        {'name': 'Task 1', 'done': False},
+        {'name': 'Task 2', 'done': True},
+        {'name': 'Task 3', 'done': False},
+    ]
+    mock_get_settings.return_value = {
+        'user_name': 'Test name',
+        'initial_setup_done': True,
+        'tasks': [dict(t) for t in tasks],
+    }
+    args = [arg.format(id=bad_id) for arg in command]
+    # '--' so negative IDs are parsed as arguments, not options
+    result = runner.invoke(app, [args[0], '--', *args[1:]], input='y\n')
+    assert result.exit_code == 0
+    mock_write_settings.assert_not_called()
+    assert mock_get_settings.return_value['tasks'] == tasks
 
 
 @patch(

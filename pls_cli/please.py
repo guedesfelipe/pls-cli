@@ -381,11 +381,9 @@ def move(old_id: int, new_id: int) -> None:
         )
         return
 
-    try:
-        _ = (not 0 <= old_id - 1 < len(settings['tasks'])) or (
-            not 0 <= new_id - 1 < len(settings['tasks'])
-        )
-    except IndexError:
+    if (not 1 <= old_id <= len(settings['tasks'])) or (
+        not 1 <= new_id <= len(settings['tasks'])
+    ):
         center_print(
             Rule(
                 'Are you sure you gave me the correct ID to move?',
@@ -397,26 +395,8 @@ def move(old_id: int, new_id: int) -> None:
         return
 
     try:
-        if len(settings['tasks']) == 2 and (
-            old_id - 1 == len(settings['tasks'])
-            or new_id - 1 == len(settings['tasks'])
-        ):
-            settings['tasks'][old_id - 1], settings['tasks'][new_id - 1] = (
-                settings['tasks'][new_id - 1],
-                settings['tasks'][old_id - 1],
-            )
-        elif old_id < new_id:
-            for x in range(new_id - 1, old_id - 1, -1):
-                settings['tasks'][old_id - 1], settings['tasks'][x] = (
-                    settings['tasks'][x],
-                    settings['tasks'][old_id - 1],
-                )
-        else:
-            for x in range(new_id - 1, old_id):
-                settings['tasks'][old_id - 1], settings['tasks'][x] = (
-                    settings['tasks'][x],
-                    settings['tasks'][old_id - 1],
-                )
+        task = settings['tasks'].pop(old_id - 1)
+        settings['tasks'].insert(new_id - 1, task)
 
         Settings().write_settings(settings)
         center_print(
@@ -713,7 +693,7 @@ def edit(task_id: int, task: str):
     print_tasks()
 
     # check if task exists
-    if task_id and task_id <= len(tasks):
+    if 1 <= task_id <= len(tasks):
         old_task = tasks[task_id - 1]['name']
     else:
         center_print(
