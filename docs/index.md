@@ -68,7 +68,7 @@
 ## 🧑‍💻 Run from source
 
 To run or develop the version of PLS-CLI in a cloned repository, install
-Python 3.9+ and [uv](https://docs.astral.sh/uv/), then run:
+Python 3.11+ and [uv](https://docs.astral.sh/uv/), then run:
 
 ```sh
 git clone https://github.com/guedesfelipe/pls-cli.git
