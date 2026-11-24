@@ -29,13 +29,15 @@ test = [
     "freezegun>=1.2.2",
 ]
 dev = [
+    { include-group = "test" },
+    { include-group = "docs" },
     "ruff>=0.8.0",
     "mypy>=1.0.0",
     "pip-audit>=2.8.0",
-    "mkdocs>=1.5.3",
-    "mkdocs-material>=9.2.7",
-    "mkdocs-meta-descriptions-plugin>=3.0.0",
     "types-setuptools>=69.0.0",
+]
+docs = [
+    "zensical>=0.1.3",
 ]
 
 [project.urls]

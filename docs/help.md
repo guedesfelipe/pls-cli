@@ -1,3 +1,7 @@
+---
+description: Ways to help PLS-CLI and to get help with it.
+---
+
 <h1 align="center">
   🆘 Help PLS-CLI - Get Help
 </h1>

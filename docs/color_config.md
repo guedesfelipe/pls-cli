@@ -1,3 +1,7 @@
+---
+description: Configure every PLS-CLI color with environment variables.
+---
+
 <h1 align="center">
   🎨 Color Configuration
 </h1>

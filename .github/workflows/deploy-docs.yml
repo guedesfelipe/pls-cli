@@ -3,51 +3,51 @@ name: Deploy Docs
 on:
   push:
     branches: [ main ]
-
-env:
-  UV_SYSTEM_PYTHON: 1
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  deploy-docs:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v6
 
-      - name: Configure Git Credentials
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-
-      - name: Setup Python 🐍
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.12'
-
-      - name: Cache ID
-        run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
-
-      - name: Cache MkDocs Material
-        uses: actions/cache@v4
-        with:
-          key: mkdocs-material-${{ env.cache_id }}
-          path: .cache
-          restore-keys: |
-            mkdocs-material-
-
       - name: Install uv 📦️
         uses: astral-sh/setup-uv@v7
         with:
+          python-version: '3.12'
           enable-cache: true
           cache-dependency-glob: |
             pyproject.toml
             uv.lock
 
       - name: Install Dependencies 📌
-        run: uv sync --group dev
+        run: uv sync --only-group docs
 
-      - name: Deploy docs 📝
-        run: uv run mkdocs gh-deploy --force
+      - name: Build docs 📝
+        run: uv run zensical build --clean
+
+      - name: Upload Pages artifact 📤
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages 🚀
+        id: deployment
+        uses: actions/deploy-pages@v4

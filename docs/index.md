@@ -1,3 +1,7 @@
+---
+description: PLS-CLI is a minimalist and fully configurable greetings and TODO list for your terminal.
+---
+
 <h1 align="center">
   💻  PLS-CLI
 </h1>
