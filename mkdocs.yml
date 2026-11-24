@@ -11,11 +11,12 @@ edit_uri: ""
 
 theme:
   name: material
-  custom_dir: docs/overrides
+  custom_dir: overrides
   icon:
     logo: octicons/terminal-16
   features:
     - content.code.annotate
+    - navigation.footer
     - navigation.top
   palette:
     - media: "(prefers-color-scheme: dark)"
@@ -25,20 +26,13 @@ theme:
         name: Switch to light mode
       primary: amber
       accent: deep orange
-    - media: "(prefers-color-scheme: light)" 
+    - media: "(prefers-color-scheme: light)"
       scheme: default
       toggle:
         icon: material/toggle-switch-off-outline
         name: Switch to dark mode
       primary: amber
       accent: deep orange
-
-# Plugins
-plugins:
-  - search
-  - meta-descriptions:
-      export_csv: false
-      quiet: false
 
 # Customization
 extra:
@@ -63,7 +57,6 @@ markdown_extensions:
   - attr_list
   - def_list
   - footnotes
-  - meta
   - md_in_html
   - toc:
       permalink: true
@@ -74,8 +67,8 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      emoji_index: !!python/name:zensical.extensions.emoji.twemoji
+      emoji_generator: !!python/name:zensical.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
@@ -96,9 +89,6 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
-  - pymdownx.snippets:
-      base_path:
-      - docs_src
 
 # Page tree
 nav:

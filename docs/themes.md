@@ -1,3 +1,7 @@
+---
+description: Community themes for PLS-CLI, ready to copy and paste into your shell.
+---
+
 <h1 align="center">
   🖼 Themes
 </h1>

@@ -40,6 +40,15 @@ lint:
 test:
 	@uv run pytest -v
 
+#* Docs
+.PHONY: docs-live
+docs-live:
+	@uv run zensical serve
+
+.PHONY: docs-build
+docs-build:
+	@uv run zensical build --clean
+
 #* Security
 .PHONY: sec
 sec:

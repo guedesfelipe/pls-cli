@@ -1,3 +1,7 @@
+---
+description: All PLS-CLI commands to manage your tasks and greetings from the terminal.
+---
+
 <h1 align="center">
   ⌨️ Commands
 </h1>
